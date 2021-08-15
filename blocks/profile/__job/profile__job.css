@@ -1,0 +1,9 @@
+.profile__job {
+  margin: 0;
+  color: white;
+  font-family: 'Inter Regular', sans-serif;
+  font-weight: 400;
+  font-style: 18px;
+  line-height: 22px;
+  grid-area: job;
+}

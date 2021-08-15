@@ -1,0 +1,7 @@
+.profile__button-edit {
+  grid-area: button;
+  width: 24px;
+  height: 24px;
+  align-self: center;
+  margin-top: 11px;
+}

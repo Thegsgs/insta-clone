@@ -1,0 +1,6 @@
+.profile__info {
+  width: calc(415/880 * 100%);
+  display: grid;
+  grid-template-columns: calc(380/415 * 100%) 1fr;
+  grid-template-areas: "name button" "job .";
+}

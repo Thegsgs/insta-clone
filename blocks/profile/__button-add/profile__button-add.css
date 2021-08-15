@@ -1,0 +1,8 @@
+.profile__button-add {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: calc(150/880 * 100%);
+  height: 50px;
+  transform: translateY(-50%);
+}
