@@ -4,6 +4,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 21px;
-  padding-right: 17px;
+  padding: 25px 15px 26px 21px;
 }

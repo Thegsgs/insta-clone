@@ -1,4 +1,5 @@
 .element__button-like {
+  padding-left: 10px;
   width: 21px;
   height: 19px;
   cursor: pointer;

@@ -1,9 +1,8 @@
 .profile__button-edit {
+  margin-top: 17px;
   grid-area: button;
   width: 24px;
   height: 24px;
-  align-self: center;
-  margin-top: 7px;
   border: solid white 1px;
   background-color: black;
   cursor: pointer;
