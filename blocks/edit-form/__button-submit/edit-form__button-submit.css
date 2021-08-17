@@ -1,0 +1,18 @@
+.edit-form__button-submit {
+  margin: 48px 0 36px 0;
+  font-family: 'Inter Regular', sans-serif;
+  font-size: 18px;
+  line-height: 22px;
+  width: calc(353/440 * 100%);
+  align-self: center;
+  height: 50px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  transition: opacity .2s ease;
+  border: hidden;
+}
+
+.edit-form__button-submit:hover {
+  opacity: .8;
+}

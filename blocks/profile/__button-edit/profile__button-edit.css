@@ -3,5 +3,24 @@
   width: 24px;
   height: 24px;
   align-self: center;
-  margin-top: 11px;
+  margin-top: 7px;
+  border: solid white 1px;
+  background-color: black;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity .2s ease;
+}
+
+.profile__button-edit:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 680px) {
+  .profile__button-edit {
+    width: 18px;
+    height: 18px;
+    align-self: flex-start;
+  }
 }

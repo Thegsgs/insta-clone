@@ -7,68 +7,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Around The U.S.</title>
   <link rel="stylesheet" href="./pages/index.css">
+  <link rel="shortcut icon" type="image/jpg" href="./images/jacques.jpg" />
 </head>
 
 <body class="page">
   <header class="header">
-    <img class="header__logo" src="./images/logo.png" alt="header logo">
+    <img class="header__logo" src="./images/logo.svg" alt="header logo">
   </header>
   <section class="profile">
     <img class="profile__avatar" src="./images/jacques.jpg" alt="Jaucques Cousteau">
     <div class="profile__info">
       <h1 class="profile__name">Jacques Cousteau</h1>
+      <button type="button" class="profile__button-edit"><img class="profile__icon-edit" src="./images/edit-icon.svg" alt="edit icon"></button>
       <p class="profile__job">Explorer</p>
-      <button type="button" class="profile__button-edit"></button>
     </div>
-    <button type="button" class="profile__button-add"></button>
+    <button type="button" class="profile__button-add"><img class="profile__icon-add" src="./images/add-icon.svg" alt="add icon"></button>
   </section>
   <section class="elements">
     <div class="element">
       <img class="element__image" src="./images/river.jpg" alt="flowing river">
       <div class="element__text-container">
         <h2 class="element__title">Yosemite Valley</h2>
-        <img class="element__button-like" src="images/button-like.svg">
+        <button type="button" class="element__button-like"><img class="element__icon-like" src="./images/button-like.svg" alt="like icon"></button>
       </div>
     </div>
     <div class="element">
-      <img class="element__image" src="./images/lake.png" alt="flowing river">
+      <img class="element__image" src="./images/lake.png" alt="lake">
       <div class="element__text-container">
         <h2 class="element__title">Lake Louise</h2>
-        <img class="element__button-like" src="images/button-like.svg">
+        <button type="button" class="element__button-like"><img class="element__icon-like" src="./images/button-like.svg" alt="like icon"></button>
       </div>
     </div>
     <div class="element">
-      <img class="element__image" src="./images/dawn.png" alt="flowing river">
+      <img class="element__image" src="./images/dawn.png" alt="dawn">
       <div class="element__text-container">
         <h2 class="element__title">Bald Mountains</h2>
-        <img class="element__button-like" src="images/button-like.svg">
+        <button type="button" class="element__button-like"><img class="element__icon-like" src="./images/button-like.svg" alt="like icon"></button>
       </div>
     </div>
     <div class="element">
-      <img class="element__image" src="./images/mountains.png" alt="flowing river">
+      <img class="element__image" src="./images/mountains.png" alt="mountains">
       <div class="element__text-container">
         <h2 class="element__title">Latemar</h2>
-        <img class="element__button-like" src="images/button-like.svg">
+        <button type="button" class="element__button-like"><img class="element__icon-like" src="./images/button-like.svg" alt="like icon"></button>
       </div>
     </div>
     <div class="element">
-      <img class="element__image" src="./images/standing-water.png" alt="flowing river">
+      <img class="element__image" src="./images/standing-water.png" alt="standing water">
       <div class="element__text-container">
         <h2 class="element__title">Vanoise National park</h2>
-        <img class="element__button-like" src="images/button-like.svg">
+        <button type="button" class="element__button-like"><img class="element__icon-like" src="./images/button-like.svg" alt="like icon"></button>
       </div>
     </div>
     <div class="element">
-      <img class="element__image" src="./images/boats.png" alt="flowing river">
+      <img class="element__image" src="./images/boats.png" alt="boats">
       <div class="element__text-container">
         <h2 class="element__title">Lago di Braies</h2>
-        <img class="element__button-like" src="images/button-like.svg">
+        <button type="button" class="element__button-like"><img class="element__icon-like" src="./images/button-like.svg" alt="like icon"></button>
       </div>
     </div>
   </section>
   <footer class="footer">
     <p class="footer__text">© 2021 Around The U.S.</p>
   </footer>
+  <div class="overlay">
+    <div class="edit-form">
+      <button type="button" class="edit-form__button-close"><img class="edit-form__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <h2 class="edit-form__title">Edit profile</h2>
+      <form class="edit-form__form">
+        <input class="edit-form__input edit-form__input_type_name" type="text" name="name">
+        <input class="edit-form__input edit-form__input_type_job" type="text" name="job">
+        <input class="edit-form__button-submit" type="submit" value="Save">
+      </form>
+    </div>
+  </div>
+  <script src="/script.js"></script>
 </body>
 
 </html>

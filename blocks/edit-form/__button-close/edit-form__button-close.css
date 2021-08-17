@@ -1,0 +1,21 @@
+.edit-form__button-close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background-color: rgba(0, 0, 0, 0);
+  border: hidden;
+  transform: rotate(45deg);
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+
+.edit-form__button-close:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 680px) {
+  .edit-form__button-close {
+    top: -40px;
+    right: 0;
+  }
+}

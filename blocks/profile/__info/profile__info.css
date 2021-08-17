@@ -1,6 +1,14 @@
 .profile__info {
-  width: calc(415/880 * 100%);
   display: grid;
-  grid-template-columns: calc(380/415 * 100%) 1fr;
-  grid-template-areas: "name button" "job .";
+  grid-template-columns: fit-content 1fr;
+  grid-template-areas: "name button" "job job";
+}
+
+@media screen and (max-width: 680px) {
+  .profile__info {
+    width: max-content;
+    grid-template-columns: fit-content 1fr;
+    justify-content: center;
+    margin-bottom: 36px;
+  }
 }

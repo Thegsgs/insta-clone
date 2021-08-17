@@ -7,3 +7,11 @@
   line-height: 22px;
   grid-area: job;
 }
+
+@media screen and (max-width: 680px) {
+  .profile__job {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+}
