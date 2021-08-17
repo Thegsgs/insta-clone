@@ -1,4 +1,4 @@
-.popup__container__button-submit {
+.popup__button-submit {
   margin: 48px 0 36px 0;
   font-family: 'Inter Regular', sans-serif;
   font-size: 18px;
@@ -13,6 +13,6 @@
   border: hidden;
 }
 
-.popup__container__button-submit:hover {
+.popup__button-submit:hover {
   opacity: .8;
 }

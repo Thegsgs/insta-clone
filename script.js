@@ -1,12 +1,12 @@
 let editForm = document.querySelector('.popup__container');
 let popup = document.querySelector('.popup');
 let editButton = document.querySelector('.profile__button-edit');
-let closeButton = document.querySelector('.popup__container__button-close');
+let closeButton = document.querySelector('.popup__button-close');
 let profileName = document.querySelector('.profile__name');
 let profileJob = document.querySelector('.profile__job');
-let saveButton = document.querySelector('.popup__container__button-submit');
-let inputJob = document.querySelector('.popup__container__input_type_job');
-let inputName = document.querySelector('.popup__container__input_type_name');
+let saveButton = document.querySelector('.popup__button-submit');
+let inputJob = document.querySelector('.popup__input_type_job');
+let inputName = document.querySelector('.popup__input_type_name');
 
 function togglepopup_opened() {
   inputName.value = profileName.textContent;
