@@ -8,18 +8,16 @@ let saveButton = document.querySelector('.edit-form__button-submit');
 let inputJob = document.querySelector('.edit-form__input_type_job');
 let inputName = document.querySelector('.edit-form__input_type_name');
 
-function makevisible() {
+function togglevisible() {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
-  overlay.classList.add('visible');
+  if (overlay.classList.contains('visible')) {
+    overlay.classList.remove('visible');
+  } else { overlay.classList.add('visible'); }
 }
 
-function makeinvisible() {
-  overlay.classList.remove('visible');
-}
-
-editButton.addEventListener('click', makevisible);
-closeButton.addEventListener('click', makeinvisible);
+editButton.addEventListener('click', togglevisible);
+closeButton.addEventListener('click', togglevisible);
 
 function changeInfo(evt) {
   evt.preventDefault();
