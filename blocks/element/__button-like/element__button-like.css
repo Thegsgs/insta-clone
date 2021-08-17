@@ -1,5 +1,4 @@
 .element__button-like {
-  padding-left: 10px;
   width: 21px;
   height: 19px;
   cursor: pointer;
@@ -17,6 +16,5 @@
 
 .element__button-like:active {
   background-image: url(../../../images/button-like-active.svg);
-  background-position: center;
   opacity: 1;
 }
