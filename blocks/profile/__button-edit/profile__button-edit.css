@@ -20,6 +20,6 @@
   .profile__button-edit {
     width: 18px;
     height: 18px;
-    align-self: flex-start;
+    margin: 0;
   }
 }
