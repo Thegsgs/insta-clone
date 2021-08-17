@@ -14,8 +14,6 @@
 
 @media screen and (max-width: 680px) {
   .profile__button-add {
-    position: static;
     width: 100%;
-    transform: translateY(0);
   }
 }

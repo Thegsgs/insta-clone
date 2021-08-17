@@ -1,8 +1,7 @@
 .popup__container {
-  position: fixed;
-  top: 195px;
+  position: relative;
   width: calc(430/1280 * 100%);
-  height: fit-content;
+  height: min-content;
   background-color: white;
   border-radius: 10px;
   display: flex;
