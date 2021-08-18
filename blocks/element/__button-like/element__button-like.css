@@ -1,6 +1,7 @@
 .element__button-like {
   width: 21px;
   height: 19px;
+  margin-left: 4px;
   cursor: pointer;
   background-color: white;
   border: none;
