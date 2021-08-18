@@ -1,10 +1,10 @@
 .popup__input {
-  font-family: 'Inter Regular', sans-serif;
+  font-family: 'Inter Regular', 'Arial', sans-serif;
   font-size: 14px;
   line-height: 17px;
   border: hidden;
   border-bottom: solid 1px rgba(0, 0, 0, .2);
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   height: 30px;
   outline: none;
 }
@@ -12,4 +12,10 @@
 .popup__input::placeholder {
   color: black;
   opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .popup__input {
+    margin-bottom: 20px;
+  }
 }

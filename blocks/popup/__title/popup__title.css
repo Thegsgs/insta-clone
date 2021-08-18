@@ -1,8 +1,17 @@
 .popup__title {
   width: calc(358/430 * 100%);
   justify-self: flex-start;
-  font-family: 'Inter Black', sans-serif;
+  font-family: 'Inter Black', 'Arial', sans-serif;
   font-size: 24px;
   line-height: 29px;
-  margin: 34px 0 54px;
+  margin: 34px 0 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .popup__title {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 70px;
+    margin-top: 25px;
+  }
 }

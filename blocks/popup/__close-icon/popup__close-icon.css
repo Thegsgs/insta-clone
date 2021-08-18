@@ -3,7 +3,7 @@
   height: 40px;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 768px) {
   .popup__close-icon {
     width: 26px;
     height: 26px;

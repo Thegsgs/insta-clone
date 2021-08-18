@@ -4,10 +4,9 @@
   grid-template-areas: "name button" "job job";
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 768px) {
   .profile__info {
     width: max-content;
-    grid-template-columns: 1fr;
     justify-content: center;
     margin-bottom: 36px;
   }

@@ -1,14 +1,14 @@
 .profile__job {
   margin: 0;
   color: white;
-  font-family: 'Inter Regular', sans-serif;
+  font-family: 'Inter Regular', 'Arial', sans-serif;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   grid-area: job;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 768px) {
   .profile__job {
     font-size: 14px;
     line-height: 17px;
