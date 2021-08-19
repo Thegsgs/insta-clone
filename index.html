@@ -10,11 +10,11 @@
   <link rel="shortcut icon" type="image/jpg" href="./images/jacques.jpg" />
 </head>
 
-<body>
-  <main class="page">
-    <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="header logo">
-    </header>
+<body class="page">
+  <header class="header">
+    <img class="header__logo" src="./images/logo.svg" alt="header logo">
+  </header>
+  <main class="content">
     <section class="profile">
       <img class="profile__avatar" src="./images/jacques.jpg" alt="Jaucques Cousteau">
       <div class="profile__info">
@@ -68,21 +68,21 @@
         </div>
       </article>
     </section>
-    <footer class="footer">
-      <p class="footer__text">© 2021 Around The U.S.</p>
-    </footer>
-    <div class="popup">
-      <div class="popup__container">
-        <button type="button" class="popup__button-close"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
-        <h2 class="popup__title">Edit profile</h2>
-        <form class="popup__form" method="POST" name="info-form">
-          <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Name">
-          <input class="popup__input popup__input_type_job" type="text" name="job" placeholder="About me">
-          <input class="popup__button-submit" type="submit" value="Save">
-        </form>
-      </div>
-    </div>
   </main>
+  <footer class="footer">
+    <p class="footer__text">© 2021 Around The U.S.</p>
+  </footer>
+  <div class="popup">
+    <div class="popup__container">
+      <button type="button" class="popup__button-close"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <h2 class="popup__title">Edit profile</h2>
+      <form class="popup__form" method="POST" name="info-form">
+        <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Name">
+        <input class="popup__input popup__input_type_job" type="text" name="job" placeholder="About me">
+        <input class="popup__button-submit" type="submit" value="Save">
+      </form>
+    </div>
+  </div>
   <script src="./scripts/script.js" type="text/javascript"></script>
 </body>
 
