@@ -8,6 +8,8 @@ const inputJob = document.querySelector('.popup__input_type_job');
 const inputName = document.querySelector('.popup__input_type_name');
 const addButton = document.querySelector('.profile__button-add');
 const cardsContainer = document.querySelector('.elements');
+const imagePopup = document.querySelector('.image-popup');
+
 
 
 function editPopupClose() {
@@ -21,7 +23,7 @@ function editPopupClose() {
   }
 }
 
-editButton.addEventListener('click', editPopupClose);
+editButton.addEventListener('click', editPopupOpen);
 closeButton.addEventListener('click', editPopupClose);
 
 function handleEditSubmit(evt) {
@@ -33,13 +35,18 @@ function handleEditSubmit(evt) {
 
 editForm.addEventListener('submit', handleEditSubmit);
 
+const cardTemplate = document.querySelector("#element-template").content;
+const popupTemplate = document.querySelector('#popup-template').content;
+const addPopup = popupTemplate.querySelector('.popup').cloneNode(true);
+
+
 const initialCards = [{
     name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
+    link: "https://images.pexels.com/photos/3481026/pexels-photo-3481026.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
   },
   {
     name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
+    link: "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
   },
   {
     name: "Bald Mountains",
@@ -59,27 +66,48 @@ const initialCards = [{
   }
 ];
 
-const cardTemplate = document.querySelector("#element-template").content;
-const popupTemplate = document.querySelector('#popup-template').content;
-const addPopup = popupTemplate.querySelector('.popup').cloneNode(true);
-
-function addCardListeners(cardElement) {
+function addCard(title, url) {
+  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+  cardElement.querySelector('.element__title').textContent = title;
+  cardElement.querySelector('.element__image').src = url;
   cardElement.querySelector('.element__button-like').addEventListener('click', function addLike(evt) {
-    evt.target.src = './images/button-like-active.svg';
+    evt.target.classList.toggle('element__button-like_active');
   });
-
   cardElement.querySelector('.element__button-delete').addEventListener('click', function cardRemove(evt) {
     evt.target.closest('.element').remove();
   });
+  cardElement.querySelector('.element__image').addEventListener('click', function imageToggle() {
+    document.querySelector('.image-popup__image').src = url;
+    document.querySelector('.image-popup__text').textContent = title;
+    document.querySelector('.image-popup').classList.toggle('image-popup_opened');
+  });
+  return cardElement;
 }
 
 initialCards.forEach(card => {
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  cardElement.querySelector('.element__title').textContent = card.name;
-  cardElement.querySelector('.element__image').src = card.link;
-  addCardListeners(cardElement);
-  cardsContainer.append(cardElement);
+  cardsContainer.append(addCard(card.name, card.link));
 });
+
+function handleAddSubmit(evt) {
+  title = addPopup.querySelector('.popup__input_line_1').value;
+  url = addPopup.querySelector('.popup__input_line_2').value;
+  cardsContainer.prepend(addCard(title, url));
+  evt.preventDefault();
+  addPopup.classList.remove('popup_opened');
+}
+
+function editPopupOpen() {
+  addPopup.querySelector(".popup__title").textContent = "Edit profile";
+  addPopup.querySelector('.popup__input_line_1').setAttribute('placeholder', 'Name');
+  addPopup.querySelector('.popup__input_line_2').setAttribute('placeholder', 'About me');
+  addPopup.querySelector('.popup__button-submit').value = "Save";
+  document.querySelector('.page').append(addPopup);
+  addPopup.classList.add('popup_opened');
+
+  addPopup.querySelector('.popup__button-close').addEventListener('click', function closeAddPopup() {
+    addPopup.classList.remove('popup_opened');
+  });
+}
 
 function addPopupOpen() {
 
@@ -95,16 +123,13 @@ function addPopupOpen() {
   });
 }
 
-function handleAddSubmit(evt) {
-
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  cardElement.querySelector('.element__title').textContent = addPopup.querySelector('.popup__input_line_1').value;
-  cardElement.querySelector('.element__image').src = addPopup.querySelector('.popup__input_line_2').value;
-  cardsContainer.prepend(cardElement);
-  addCardListeners(cardElement);
-  evt.preventDefault();
-  addPopup.classList.remove('popup_opened');
-}
-
 addPopup.querySelector('.popup__container').addEventListener('submit', handleAddSubmit);
 addButton.addEventListener('click', addPopupOpen);
+
+const imageClose = document.querySelector('.image-popup__button-close');
+
+function imagePopupClose() {
+  document.querySelector('.image-popup').classList.toggle('image-popup_opened');
+}
+
+imageClose.addEventListener('click', imagePopupClose);
