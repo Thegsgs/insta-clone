@@ -9,11 +9,6 @@
   outline: none;
 }
 
-.popup__input::placeholder {
-  color: black;
-  opacity: 1;
-}
-
 @media screen and (max-width: 768px) {
   .popup__input {
     margin-bottom: 20px;
