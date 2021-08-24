@@ -46,16 +46,16 @@ editPopup.addEventListener('submit', handleEditSubmit);
 /* Creating initial cards as well as creating the card adding from on load and adding cards */
 
 const initialCards = [{
-    name: "Yosemite Valley",
+    name: "Temple",
     link: "https://images.pexels.com/photos/3481026/pexels-photo-3481026.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
   },
   {
-    name: "Lake Louise",
+    name: "Lake ",
     link: "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
   },
   {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
+    name: "Forest",
+    link: "https://images.pexels.com/photos/1995730/pexels-photo-1995730.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
   },
   {
     name: "Latemar",
