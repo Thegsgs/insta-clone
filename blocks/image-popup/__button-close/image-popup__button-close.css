@@ -9,7 +9,7 @@
   transition: opacity .2s ease;
 }
 
-.iamge-popup__button-close:hover {
+.image-popup__button-close:hover {
   opacity: .6;
 }
 

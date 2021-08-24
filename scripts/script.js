@@ -1,44 +1,42 @@
-const editForm = document.querySelector('.popup__container');
-const popup = document.querySelector('.popup');
 const editButton = document.querySelector('.profile__button-edit');
-const closeButton = document.querySelector('.popup__button-close');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
-const inputJob = document.querySelector('.popup__input_type_job');
-const inputName = document.querySelector('.popup__input_type_name');
 const addButton = document.querySelector('.profile__button-add');
 const cardsContainer = document.querySelector('.elements');
 const imagePopup = document.querySelector('.image-popup');
+const popupTemplate = document.querySelector('#popup-template').content;
+const addPopup = popupTemplate.querySelector('.popup').cloneNode(true);
+const editPopup = popupTemplate.querySelector('.popup').cloneNode(true);
+const editCloseButton = document.querySelector('.popup__button-close');
+const cardTemplate = document.querySelector("#element-template").content;
 
 
+function editPopupOpen() {
+  editPopup.querySelector(".popup__title").textContent = "Edit profile";
+  editPopup.querySelector('.popup__input_line_1').setAttribute('placeholder', 'Name');
+  editPopup.querySelector('.popup__input_line_2').setAttribute('placeholder', 'About me');
+  editPopup.querySelector('.popup__input_line_1').value = profileName.textContent;
+  editPopup.querySelector('.popup__input_line_2').value = profileJob.textContent;
+  editPopup.querySelector('.popup__button-submit').value = "Save";
+  document.querySelector('.page').append(editPopup);
+  editPopup.classList.add('popup_opened');
 
-function editPopupClose() {
+  editPopup.querySelector('.popup__button-close').addEventListener('click', () => {
+    editPopup.classList.remove('popup_opened');
+  });
 
-  if (popup.classList.contains('popup_opened')) {
-    popup.classList.remove('popup_opened');
-  } else {
-    inputName.value = profileName.textContent;
-    inputJob.value = profileJob.textContent;
-    popup.classList.add('popup_opened');
-  }
 }
 
 editButton.addEventListener('click', editPopupOpen);
-closeButton.addEventListener('click', editPopupClose);
 
 function handleEditSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = inputName.value;
-  profileJob.textContent = inputJob.value;
-  popup.classList.remove('popup_opened');
+  profileName.textContent = editPopup.querySelector('.popup__input_line_1').value;
+  profileJob.textContent = editPopup.querySelector('.popup__input_line_2').value;
+  editPopup.classList.remove('popup_opened');
 }
 
-editForm.addEventListener('submit', handleEditSubmit);
-
-const cardTemplate = document.querySelector("#element-template").content;
-const popupTemplate = document.querySelector('#popup-template').content;
-const addPopup = popupTemplate.querySelector('.popup').cloneNode(true);
-
+editPopup.addEventListener('submit', handleEditSubmit);
 
 const initialCards = [{
     name: "Yosemite Valley",
@@ -66,17 +64,17 @@ const initialCards = [{
   }
 ];
 
-function addCard(title, url) {
+function cardBuilder(title, url) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   cardElement.querySelector('.element__title').textContent = title;
   cardElement.querySelector('.element__image').src = url;
-  cardElement.querySelector('.element__button-like').addEventListener('click', function addLike(evt) {
+  cardElement.querySelector('.element__button-like').addEventListener('click', evt => {
     evt.target.classList.toggle('element__button-like_active');
   });
-  cardElement.querySelector('.element__button-delete').addEventListener('click', function cardRemove(evt) {
+  cardElement.querySelector('.element__button-delete').addEventListener('click', evt => {
     evt.target.closest('.element').remove();
   });
-  cardElement.querySelector('.element__image').addEventListener('click', function imageToggle() {
+  cardElement.querySelector('.element__image').addEventListener('click', () => {
     document.querySelector('.image-popup__image').src = url;
     document.querySelector('.image-popup__text').textContent = title;
     document.querySelector('.image-popup').classList.toggle('image-popup_opened');
@@ -85,29 +83,18 @@ function addCard(title, url) {
 }
 
 initialCards.forEach(card => {
-  cardsContainer.append(addCard(card.name, card.link));
+  cardsContainer.append(cardBuilder(card.name, card.link));
 });
 
 function handleAddSubmit(evt) {
   title = addPopup.querySelector('.popup__input_line_1').value;
   url = addPopup.querySelector('.popup__input_line_2').value;
-  cardsContainer.prepend(addCard(title, url));
+  cardsContainer.prepend(cardBuilder(title, url));
   evt.preventDefault();
   addPopup.classList.remove('popup_opened');
 }
 
-function editPopupOpen() {
-  addPopup.querySelector(".popup__title").textContent = "Edit profile";
-  addPopup.querySelector('.popup__input_line_1').setAttribute('placeholder', 'Name');
-  addPopup.querySelector('.popup__input_line_2').setAttribute('placeholder', 'About me');
-  addPopup.querySelector('.popup__button-submit').value = "Save";
-  document.querySelector('.page').append(addPopup);
-  addPopup.classList.add('popup_opened');
-
-  addPopup.querySelector('.popup__button-close').addEventListener('click', function closeAddPopup() {
-    addPopup.classList.remove('popup_opened');
-  });
-}
+addPopup.querySelector('.popup__container').addEventListener('submit', handleAddSubmit);
 
 function addPopupOpen() {
 
@@ -118,12 +105,11 @@ function addPopupOpen() {
   document.querySelector('.page').append(addPopup);
   addPopup.classList.add('popup_opened');
 
-  addPopup.querySelector('.popup__button-close').addEventListener('click', function closeAddPopup() {
+  addPopup.querySelector('.popup__button-close').addEventListener('click', () => {
     addPopup.classList.remove('popup_opened');
   });
 }
 
-addPopup.querySelector('.popup__container').addEventListener('submit', handleAddSubmit);
 addButton.addEventListener('click', addPopupOpen);
 
 const imageClose = document.querySelector('.image-popup__button-close');
