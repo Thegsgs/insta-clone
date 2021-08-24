@@ -10,8 +10,9 @@ const editPopup = popupTemplate.querySelector('.popup').cloneNode(true);
 const editCloseButton = document.querySelector('.popup__button-close');
 const cardTemplate = document.querySelector("#element-template").content;
 
+/* Creating edit profile form on page load as well as editing the profile */
 
-function editPopupOpen() {
+function editPopupCreate() {
   editPopup.querySelector(".popup__title").textContent = "Edit profile";
   editPopup.querySelector('.popup__input_line_1').setAttribute('placeholder', 'Name');
   editPopup.querySelector('.popup__input_line_2').setAttribute('placeholder', 'About me');
@@ -19,12 +20,16 @@ function editPopupOpen() {
   editPopup.querySelector('.popup__input_line_2').value = profileJob.textContent;
   editPopup.querySelector('.popup__button-submit').value = "Save";
   document.querySelector('.page').append(editPopup);
-  editPopup.classList.add('popup_opened');
 
   editPopup.querySelector('.popup__button-close').addEventListener('click', () => {
     editPopup.classList.remove('popup_opened');
   });
 
+}
+editPopupCreate();
+
+function editPopupOpen() {
+  editPopup.classList.add('popup_opened');
 }
 
 editButton.addEventListener('click', editPopupOpen);
@@ -37,6 +42,8 @@ function handleEditSubmit(evt) {
 }
 
 editPopup.addEventListener('submit', handleEditSubmit);
+
+/* Creating initial cards as well as creating the card adding from on load and adding cards */
 
 const initialCards = [{
     name: "Yosemite Valley",
@@ -77,7 +84,7 @@ function cardBuilder(title, url) {
   cardElement.querySelector('.element__image').addEventListener('click', () => {
     document.querySelector('.image-popup__image').src = url;
     document.querySelector('.image-popup__text').textContent = title;
-    document.querySelector('.image-popup').classList.toggle('image-popup_opened');
+    document.querySelector('.image-popup').classList.add('image-popup_opened');
   });
   return cardElement;
 }
@@ -96,18 +103,23 @@ function handleAddSubmit(evt) {
 
 addPopup.querySelector('.popup__container').addEventListener('submit', handleAddSubmit);
 
-function addPopupOpen() {
+function addPopupCreate() {
 
   addPopup.querySelector(".popup__title").textContent = "New place";
   addPopup.querySelector('.popup__input_line_1').setAttribute('placeholder', 'Title');
   addPopup.querySelector('.popup__input_line_2').setAttribute('placeholder', 'Image link');
   addPopup.querySelector('.popup__button-submit').value = "Create";
   document.querySelector('.page').append(addPopup);
-  addPopup.classList.add('popup_opened');
+
 
   addPopup.querySelector('.popup__button-close').addEventListener('click', () => {
     addPopup.classList.remove('popup_opened');
   });
+}
+addPopupCreate();
+
+function addPopupOpen() {
+  addPopup.classList.add('popup_opened');
 }
 
 addButton.addEventListener('click', addPopupOpen);
@@ -115,7 +127,7 @@ addButton.addEventListener('click', addPopupOpen);
 const imageClose = document.querySelector('.image-popup__button-close');
 
 function imagePopupClose() {
-  document.querySelector('.image-popup').classList.toggle('image-popup_opened');
+  document.querySelector('.image-popup').classList.remove('image-popup_opened');
 }
 
 imageClose.addEventListener('click', imagePopupClose);
