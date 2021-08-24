@@ -102,7 +102,7 @@ function cardBuilder(title, url) {
     popupImageSrc.src = url;
     popupImageTitle.textContent = title;
     popupImageAlt.textContent = title;
-    imagePopup.classList.add('opened');
+    openPopup(imagePopup);
     document.querySelector('.image-popup__button-close').addEventListener('click', () => {
       closePopup(imagePopup);
     });
