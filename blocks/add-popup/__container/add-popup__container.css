@@ -1,4 +1,4 @@
-.popup__container {
+.add-popup__container {
   position: relative;
   min-width: 240px;
   max-width: 430px;
@@ -13,7 +13,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .popup__container {
+  .add-popup__container {
     width: 75%;
   }
 }

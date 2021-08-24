@@ -1,0 +1,19 @@
+.edit-popup__container {
+  position: relative;
+  min-width: 240px;
+  max-width: 430px;
+  width: calc(430/1280 * 100%);
+  height: min-content;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+@media screen and (max-width: 768px) {
+  .edit-popup__container {
+    width: 75%;
+  }
+}
