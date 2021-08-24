@@ -50,7 +50,7 @@ const initialCards = [{
     link: "https://images.pexels.com/photos/3481026/pexels-photo-3481026.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
   },
   {
-    name: "Lake ",
+    name: "River",
     link: "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
   },
   {
@@ -58,16 +58,16 @@ const initialCards = [{
     link: "https://images.pexels.com/photos/1995730/pexels-photo-1995730.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
   },
   {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg"
+    name: "Cliffs",
+    link: "https://images.pexels.com/photos/1402850/pexels-photo-1402850.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
   },
   {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg"
+    name: "Supernova in space",
+    link: "https://images.pexels.com/photos/816608/pexels-photo-816608.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
   },
   {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg"
+    name: "Beach",
+    link: "https://images.pexels.com/photos/2524874/pexels-photo-2524874.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
   }
 ];
 
