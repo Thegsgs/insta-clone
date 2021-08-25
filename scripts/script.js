@@ -87,9 +87,9 @@ const initialCards = [{
   }
 ];
 
-const popupImageSrc = document.querySelector('.image-popup__image');
+const popupImage = document.querySelector('.image-popup__image');
 const popupImageTitle = document.querySelector('.image-popup__text');
-const popupImageAlt = document.querySelector('.image-popup__image');
+
 
 function cardBuilder(title, url) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
@@ -108,9 +108,9 @@ function cardBuilder(title, url) {
     evt.target.closest('.element').remove();
   });
   cardImage.addEventListener('click', () => {
-    popupImageSrc.src = url;
+    popupImage.src = url;
     popupImageTitle.textContent = title;
-    popupImageAlt.textContent = title;
+    popupImage.alt = title;
     openPopup(imagePopup);
   });
   return cardElement;
