@@ -45,8 +45,8 @@
       <button type="button" class="edit-popup__button-close"><img class="edit-popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
       <h2 class="edit-popup__title">Edit profile</h2>
       <form class="edit-popup__form" method="POST" name="info-form">
-        <input class="edit-popup__input edit-popup__input_type_name" type="text" name="name" placeholder="Name">
-        <input class="edit-popup__input edit-popup__input_type_job" type="text" name="job" placeholder="About me">
+        <input class="edit-popup__input edit-popup__input_type_name" type="text" name="name" placeholder="Name" required minlength="2" maxlength="40">
+        <input class="edit-popup__input edit-popup__input_type_job" type="text" name="job" placeholder="About me" required minlength="2" maxlength="200">
         <input class="edit-popup__button-submit" type="submit" value="Save">
       </form>
     </div>

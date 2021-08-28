@@ -17,6 +17,8 @@ const urlInput = addPopup.querySelector('.add-popup__input_type_url');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 
+
+
 /* Opening both forms and adding cards/editing profile */
 
 function closePopup(popup) {
@@ -98,3 +100,21 @@ imageCardPopupBtn.addEventListener('click', () => {
 initialCards.forEach(card => {
   cardsContainer.append(cardBuilder(card.name, card.link));
 });
+
+// Input validation for all forms (Inspired by platform exercise)
+
+const enableValidationObj = ({
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible"
+});
+
+const enableValidation = (enableValidationObj) => {
+  const formList = Array.from(document.querySelectorAll(enableValidationObj[formSelector]));
+
+};
+
+enableValidation();
