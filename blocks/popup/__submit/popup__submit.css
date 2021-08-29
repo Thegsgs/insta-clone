@@ -11,7 +11,7 @@
   background-color: black;
   color: white;
   cursor: pointer;
-  transition: opacity .2s ease;
+  transition: all .2s ease;
   border: hidden;
   border-radius: 2px;
 }
