@@ -40,26 +40,30 @@
     </div>
   </div>
 
-  <div class="edit-popup">
-    <div class="edit-popup__container">
-      <button type="button" class="edit-popup__button-close"><img class="edit-popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
-      <h2 class="edit-popup__title">Edit profile</h2>
-      <form class="edit-popup__form" method="POST" name="info-form">
-        <input class="edit-popup__input edit-popup__input_type_name" type="text" name="name" placeholder="Name" required minlength="2" maxlength="40">
-        <input class="edit-popup__input edit-popup__input_type_job" type="text" name="job" placeholder="About me" required minlength="2" maxlength="200">
-        <input class="edit-popup__button-submit" type="submit" value="Save">
+  <div class="popup popup_type_edit">
+    <div class="popup__container">
+      <button type="button" class="popup__close popup__close_type_edit"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <h2 class="popup__title">Edit profile</h2>
+      <form class="popup__form" method="POST" name="info-form" novalidate>
+        <input class="popup__input" id='name-input' type="text" name="name-input" placeholder="Name" required minlength="2" maxlength="40">
+        <span class="popup__error popup__error_type_name-input"></span>
+        <input class="popup__input" id='job-input' type="text" name="job-input" placeholder="About me" required minlength="2" maxlength="200">
+        <span class="popup__error popup__error_type_job-input"></span>
+        <button type="submit" class="popup__submit">Save</button>
       </form>
     </div>
   </div>
 
-  <div class="add-popup">
-    <div class="add-popup__container">
-      <button type="button" class="add-popup__button-close"><img class="add-popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
-      <h2 class="add-popup__title">New place</h2>
-      <form class="add-popup__form" method="POST" name="info-form">
-        <input class="add-popup__input add-popup__input_type_title" type="text" name="fist-input" placeholder="Title">
-        <input class="add-popup__input add-popup__input_type_url" type="text" name="second-input" placeholder="Image link">
-        <input class="add-popup__button-submit" type="submit" value="Create">
+  <div class="popup popup_type_add">
+    <div class="popup__container">
+      <button type="button" class="popup__close popup__close_type_add"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <h2 class="popup__title">New place</h2>
+      <form class="popup__form" method="POST" name="add-form">
+        <input class="popup__input" id="title-input" type="text" name="title-input" placeholder="Title" required minlength="1" maxlength="30">
+        <span class="popup__error popup__error_type_title-input"></span>
+        <input class="popup__input" id="url-input" type="url" name="url-input" placeholder="Image link" required>
+        <span class="popup__error popup__error_type_url-input"></span>
+        <button type="submit" class="popup__submit">Save</button>
       </form>
     </div>
   </div>

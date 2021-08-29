@@ -1,4 +1,4 @@
-.edit-popup__title {
+.popup__title {
   width: calc(358/430 * 100%);
   justify-self: flex-start;
   font-family: 'Inter Black', 'Arial', sans-serif;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .edit-popup__title {
+  .popup__title {
     font-size: 18px;
     line-height: 22px;
     margin-bottom: 70px;
