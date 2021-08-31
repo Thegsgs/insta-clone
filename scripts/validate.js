@@ -73,7 +73,7 @@ const resetValidation = (popup, validationObject) => {
 function resetSubmitBtn(popup, validationObject) {
   const submitBtn = popup.querySelector(validationObject.submitButtonSelector);
   if (submitBtn !== null) {
-    popup.querySelector(validationObject.submitButtonSelector).classList.add(validationObject.inactiveButtonClass);
+    submitBtn.classList.add(validationObject.inactiveButtonClass);
   }
 }
 

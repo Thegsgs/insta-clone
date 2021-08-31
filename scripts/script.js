@@ -35,34 +35,28 @@ const addForm = document.querySelector('.popup__form_type_add-card');
 
 // Opening both forms and adding cards/editing profile
 
-function closeOnClick(evt, popup) {
+function closeOnClick(evt) {
+  const popup = document.querySelector('.opened');
   if (evt.target === popup) {
     closePopup(popup);
   }
 }
 
-function closeOnEscape(evt, popup) {
+function closeOnEscape(evt) {
+  const popup = document.querySelector('.opened');
   if (evt.key === 'Escape') {
     closePopup(popup);
   }
 }
 
 function addClosingListeners(popup) {
-  document.addEventListener('keydown', (evt) => {
-    closeOnEscape(evt, popup);
-  });
-  popup.addEventListener('click', (evt) => {
-    closeOnClick(evt, popup);
-  });
+  document.addEventListener('keydown', closeOnEscape);
+  popup.addEventListener('click', closeOnClick);
 }
 
 function removeClosingListeners(popup) {
-  document.removeEventListener('keydown', (evt) => {
-    closeOnEscape(evt, popup);
-  });
-  popup.removeEventListener('click', (evt) => {
-    closeOnClick(evt, popup);
-  });
+  document.removeEventListener('keydown', closeOnEscape);
+  popup.removeEventListener('click', closeOnClick);
 }
 
 function closePopup(popup) {
