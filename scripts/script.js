@@ -36,14 +36,14 @@ const addForm = document.querySelector('.popup__form_type_add-card');
 // Opening both forms and adding cards/editing profile
 
 function closeOnClick(evt) {
-  const popup = document.querySelector('.opened');
+  const popup = document.querySelector('.popup_opened');
   if (evt.target === popup) {
     closePopup(popup);
   }
 }
 
 function closeOnEscape(evt) {
-  const popup = document.querySelector('.opened');
+  const popup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
     closePopup(popup);
   }
@@ -63,12 +63,12 @@ function closePopup(popup) {
   resetSubmitBtn(popup, validationObject);
   resetValidation(popup, validationObject);
   removeClosingListeners(popup);
-  popup.classList.remove('opened');
+  popup.classList.remove('popup_opened');
 }
 
 function openPopup(popup) {
   addClosingListeners(popup);
-  popup.classList.add('opened');
+  popup.classList.add('popup_opened');
 }
 
 addButton.addEventListener('click', () => {
