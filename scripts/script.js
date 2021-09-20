@@ -5,7 +5,7 @@ import {
   resetValidation,
   enableValidation,
   resetSubmitBtn
-} from './validate.js';
+} from './FormValidator.js';
 
 const validationObject = {
   formSelector: ".popup__form",
@@ -22,7 +22,7 @@ const imagePopup = document.querySelector('.image-popup');
 const addCardPopupBtn = document.querySelector('.popup__close_type_add');
 const editCardPopupBtn = document.querySelector('.popup__close_type_edit');
 const imageCardPopupBtn = document.querySelector('.image-popup__button-close');
-const cardTemplate = document.querySelector("#element-template").content;
+
 const editPopup = document.querySelector('.popup_type_edit');
 const addPopup = document.querySelector('.popup_type_add');
 const nameInput = editPopup.querySelector('#name-input');
@@ -80,6 +80,78 @@ addCardPopupBtn.addEventListener('click', () => {
   closePopup(addPopup);
 });
 
+const popupImage = document.querySelector('.image-popup__image');
+const popupImageTitle = document.querySelector('.image-popup__text');
+
+// Card class
+
+class Card {
+  constructor(title, url, selector) {
+    this._title = title;
+    this._url = url;
+    this._selector = selector;
+  }
+
+  _getTemplate() {
+    return document
+      .querySelector(this._selector)
+      .content
+      .querySelector('.element')
+      .cloneNode(true);
+  }
+
+  _setCardElements() {
+    this._element = this._getTemplate();
+    this._elementImage = this._element.querySelector('.element__image');
+    this._elementTitle = this._element.querySelector('.element__title');
+    this._elementBtnLike = this._element.querySelector('.element__button-like');
+    this._elementBtnDel = this._element.querySelector('.element__button-delete');
+  }
+
+  createCard() {
+    this._setCardElements();
+
+    this._elementTitle.textContent = this._title;
+    this._elementImage.src = this._url;
+    this._elementImage.alt = this._title;
+
+    this._setEventLiteners();
+
+    return this._element;
+  }
+
+  _setEventLiteners() {
+    this._elementBtnLike.addEventListener('click', (evt) => {
+      this._toggleLike(evt);
+    });
+    this._elementBtnDel.addEventListener('click', (evt) => {
+      this._delCard(evt);
+    });
+    this._elementImage.addEventListener('click', () => {
+      this._handlePopupOpen();
+    });
+
+  }
+
+  _toggleLike(evt) {
+    evt.target.classList.toggle('element__button-like_active');
+  }
+
+  _delCard(evt) {
+    evt.target.closest('.element').remove();
+  }
+
+  _handlePopupOpen() {
+    popupImage.src = this._url;
+    popupImageTitle.textContent = this._title;
+    popupImage.alt = this._title;
+    openPopup(imagePopup);
+  }
+
+}
+
+// end
+
 editButton.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
@@ -96,38 +168,8 @@ editCardPopupBtn.addEventListener('click', () => {
   closePopup(editPopup);
 });
 
-// Creating initial cards and handling opening and closing the image popups
-
-const popupImage = document.querySelector('.image-popup__image');
-const popupImageTitle = document.querySelector('.image-popup__text');
-
-function createCard(title, url) {
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  const cardTitle = cardElement.querySelector('.element__title');
-  const cardImage = cardElement.querySelector('.element__image');
-  const cardLikeBtn = cardElement.querySelector('.element__button-like');
-  const cardDelBtn = cardElement.querySelector('.element__button-delete');
-  cardTitle.textContent = title;
-  cardImage.src = url;
-  cardImage.alt = title;
-
-  cardLikeBtn.addEventListener('click', evt => {
-    evt.target.classList.toggle('element__button-like_active');
-  });
-  cardDelBtn.addEventListener('click', evt => {
-    evt.target.closest('.element').remove();
-  });
-  cardImage.addEventListener('click', () => {
-    popupImage.src = url;
-    popupImageTitle.textContent = title;
-    popupImage.alt = title;
-    openPopup(imagePopup);
-  });
-  return cardElement;
-}
-
 addPopup.addEventListener('submit', () => {
-  cardsContainer.prepend(createCard(titleInput.value, urlInput.value));
+  cardsContainer.prepend(new Card(titleInput.value, urlInput.value, "#element-template").createCard());
   closePopup(addPopup);
 });
 
@@ -136,7 +178,7 @@ imageCardPopupBtn.addEventListener('click', () => {
 });
 
 initialCards.forEach(card => {
-  cardsContainer.append(createCard(card.name, card.link));
+  cardsContainer.append(new Card(card.name, card.link, "#element-template").createCard());
 });
 
 enableValidation(validationObject);
