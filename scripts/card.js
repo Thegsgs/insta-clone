@@ -1,8 +1,9 @@
 class Card {
-  constructor(title, url, selector) {
+  constructor(title, url, selector, { handlePopupOpen }) {
     this._title = title;
     this._url = url;
     this._selector = selector;
+    this._handlePopupOpen = handlePopupOpen;
   }
 
   _getTemplate() {
@@ -21,57 +22,12 @@ class Card {
     this._elementBtnDel = this._element.querySelector('.element__button-delete');
   }
 
-  _setPopupElements() {
-    this._imagePopup = document.querySelector('.image-popup');
-    this._popupCloseBtn = this._imagePopup.querySelector('.image-popup__button-close');
-    this._popupImg = this._imagePopup.querySelector('.image-popup__image');
-    this._popupImgTitle = this._imagePopup.querySelector('.image-popup__text');
-  }
-
   _toggleLike(evt) {
     evt.target.classList.toggle('element__button-like_active');
   }
 
   _delCard(evt) {
     evt.target.closest('.element').remove();
-  }
-
-  _handleCloseOnEsc(evt) {
-    if (evt.key === 'Escape') {
-      this._imagePopup.classList.remove('popup_opened');
-    }
-  }
-
-  _handleCloseOnClick(evt) {
-    if (evt.target === this._imagePopup) {
-      this._imagePopup.classList.remove('popup_opened');
-    }
-  }
-
-  _handleCloseOnBtn() {
-    this._imagePopup.classList.remove('popup_opened');
-  }
-
-  _setClosingListeners() {
-    document.addEventListener('keydown', (evt) => {
-      this._handleCloseOnEsc(evt);
-    });
-    this._imagePopup.addEventListener('click', (evt) => {
-      this._handleCloseOnClick(evt);
-    });
-    this._popupCloseBtn.addEventListener('click', () => {
-      this._handleCloseOnBtn();
-    });
-  }
-
-  _handlePopupOpen() {
-    this._setPopupElements();
-    this._setClosingListeners();
-
-    this._popupImg.src = this._url;
-    this._popupImgTitle.textContent = this._title;
-    this._popupImg = this._title;
-    this._imagePopup.classList.add('popup_opened');
   }
 
   _setEventLiteners() {
@@ -82,14 +38,13 @@ class Card {
       this._delCard(evt);
     });
     this._elementImage.addEventListener('click', () => {
-      this._handlePopupOpen();
+      this._handlePopupOpen(this._title, this._url);
     });
 
   }
 
   createCard() {
     this._setCardElements();
-    this._setPopupElements();
 
     this._elementTitle.textContent = this._title;
     this._elementImage.src = this._url;

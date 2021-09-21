@@ -14,7 +14,9 @@ const validationObject = {
   submitButtonSelector: ".popup__submit",
   inactiveButtonClass: "popup__submit_disabled",
   inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible"
+  errorClass: "popup__error_visible",
+  popupError: ".popup__error",
+  errorType: ".popup__error_type_"
 }
 
 const editBtn = document.querySelector('.profile__button-edit');
@@ -31,6 +33,7 @@ const urlInput = addPopup.querySelector('#url-input');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const addForm = document.querySelector('.popup__form_type_add-card');
+const editForm = document.querySelector('.popup__form_type_edit-profile');
 const formList = document.querySelectorAll(validationObject.formSelector);
 
 // Opening both forms and adding cards/editing profile
@@ -47,6 +50,25 @@ function closeOnEscape(evt) {
   if (evt.key === 'Escape') {
     closePopup(popup);
   }
+}
+
+function closeOnBtn() {
+  const popup = document.querySelector('.popup_opened');
+  popup.classList.remove('popup_opened');
+  popup.removeEventListener('click', closeOnBtn);
+}
+
+function openImagePopup(title, url) {
+  const popup = document.querySelector('.image-popup');
+  const popupImg = popup.querySelector('.image-popup__image');
+  const popupImgTitle = popup.querySelector('.image-popup__text');
+  const popupCloseBtn = popup.querySelector('.image-popup__button-close');
+  popupImg.src = url;
+  popupImg.alt = title;
+  popupImgTitle.textContent = title;
+  addClosingListeners(popup);
+  popupCloseBtn.addEventListener('click', closeOnBtn);
+  popup.classList.add('popup_opened');
 }
 
 function addClosingListeners(popup) {
@@ -86,7 +108,7 @@ editBtn.addEventListener('click', () => {
   openPopup(editPopup);
 });
 
-editPopup.addEventListener('submit', () => {
+editForm.addEventListener('submit', () => {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(editPopup);
@@ -96,18 +118,22 @@ editCardPopupBtn.addEventListener('click', () => {
   closePopup(editPopup);
 });
 
-addPopup.addEventListener('submit', () => {
-  cardsContainer.prepend(new Card(titleInput.value, urlInput.value, "#element-template").createCard());
+addForm.addEventListener('submit', () => {
+  cardsContainer.prepend(new Card(titleInput.value,
+    urlInput.value,
+    "#element-template", { handlePopupOpen: openImagePopup }).createCard());
   closePopup(addPopup);
 });
 
 // Creating initial cards.
 
 initialCards.forEach(card => {
-  cardsContainer.append(new Card(card.name, card.link, "#element-template").createCard());
+  cardsContainer.append(new Card(card.name,
+    card.link,
+    "#element-template", { handlePopupOpen: openImagePopup }).createCard());
 });
 
-// Setting from validation for all forms.
+// Setting form validation for all forms.
 
 formList.forEach(formElement => {
   new FormValidator(validationObject, formElement).enableValidation();
