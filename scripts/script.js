@@ -1,10 +1,11 @@
 // Imports and initial declarations
 
+import { Card } from './card.js';
 import { initialCards } from './initial-cards.js';
 import {
   resetValidation,
-  enableValidation,
-  resetSubmitBtn
+  resetSubmitBtn,
+  FormValidator
 } from './FormValidator.js';
 
 const validationObject = {
@@ -15,14 +16,12 @@ const validationObject = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible"
 }
-const editButton = document.querySelector('.profile__button-edit');
-const addButton = document.querySelector('.profile__button-add');
+
+const editBtn = document.querySelector('.profile__button-edit');
+const addBtn = document.querySelector('.profile__button-add');
 const cardsContainer = document.querySelector('.elements');
-const imagePopup = document.querySelector('.image-popup');
 const addCardPopupBtn = document.querySelector('.popup__close_type_add');
 const editCardPopupBtn = document.querySelector('.popup__close_type_edit');
-const imageCardPopupBtn = document.querySelector('.image-popup__button-close');
-
 const editPopup = document.querySelector('.popup_type_edit');
 const addPopup = document.querySelector('.popup_type_add');
 const nameInput = editPopup.querySelector('#name-input');
@@ -32,6 +31,7 @@ const urlInput = addPopup.querySelector('#url-input');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const addForm = document.querySelector('.popup__form_type_add-card');
+const formList = document.querySelectorAll(validationObject.formSelector);
 
 // Opening both forms and adding cards/editing profile
 
@@ -71,7 +71,7 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
-addButton.addEventListener('click', () => {
+addBtn.addEventListener('click', () => {
   addForm.reset();
   openPopup(addPopup);
 });
@@ -80,79 +80,7 @@ addCardPopupBtn.addEventListener('click', () => {
   closePopup(addPopup);
 });
 
-const popupImage = document.querySelector('.image-popup__image');
-const popupImageTitle = document.querySelector('.image-popup__text');
-
-// Card class
-
-class Card {
-  constructor(title, url, selector) {
-    this._title = title;
-    this._url = url;
-    this._selector = selector;
-  }
-
-  _getTemplate() {
-    return document
-      .querySelector(this._selector)
-      .content
-      .querySelector('.element')
-      .cloneNode(true);
-  }
-
-  _setCardElements() {
-    this._element = this._getTemplate();
-    this._elementImage = this._element.querySelector('.element__image');
-    this._elementTitle = this._element.querySelector('.element__title');
-    this._elementBtnLike = this._element.querySelector('.element__button-like');
-    this._elementBtnDel = this._element.querySelector('.element__button-delete');
-  }
-
-  createCard() {
-    this._setCardElements();
-
-    this._elementTitle.textContent = this._title;
-    this._elementImage.src = this._url;
-    this._elementImage.alt = this._title;
-
-    this._setEventLiteners();
-
-    return this._element;
-  }
-
-  _setEventLiteners() {
-    this._elementBtnLike.addEventListener('click', (evt) => {
-      this._toggleLike(evt);
-    });
-    this._elementBtnDel.addEventListener('click', (evt) => {
-      this._delCard(evt);
-    });
-    this._elementImage.addEventListener('click', () => {
-      this._handlePopupOpen();
-    });
-
-  }
-
-  _toggleLike(evt) {
-    evt.target.classList.toggle('element__button-like_active');
-  }
-
-  _delCard(evt) {
-    evt.target.closest('.element').remove();
-  }
-
-  _handlePopupOpen() {
-    popupImage.src = this._url;
-    popupImageTitle.textContent = this._title;
-    popupImage.alt = this._title;
-    openPopup(imagePopup);
-  }
-
-}
-
-// end
-
-editButton.addEventListener('click', () => {
+editBtn.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   openPopup(editPopup);
@@ -173,12 +101,14 @@ addPopup.addEventListener('submit', () => {
   closePopup(addPopup);
 });
 
-imageCardPopupBtn.addEventListener('click', () => {
-  closePopup(imagePopup);
-});
+// Creating initial cards.
 
 initialCards.forEach(card => {
   cardsContainer.append(new Card(card.name, card.link, "#element-template").createCard());
 });
 
-enableValidation(validationObject);
+// Setting from validation for all forms.
+
+formList.forEach(formElement => {
+  new FormValidator(validationObject, formElement).enableValidation();
+});
