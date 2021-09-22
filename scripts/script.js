@@ -35,6 +35,10 @@ const profileJob = document.querySelector('.profile__job');
 const addForm = document.querySelector('.popup__form_type_add-card');
 const editForm = document.querySelector('.popup__form_type_edit-profile');
 const formList = document.querySelectorAll(validationObject.formSelector);
+const imagePopup = document.querySelector('.image-popup');
+const imagePopupCloseBtn = imagePopup.querySelector('.image-popup__button-close');
+const popupImg = imagePopup.querySelector('.image-popup__image');
+const popupImgTitle = imagePopup.querySelector('.image-popup__text');
 
 // Opening both forms and adding cards/editing profile
 
@@ -52,23 +56,13 @@ function closeOnEscape(evt) {
   }
 }
 
-function closeOnBtn() {
-  const popup = document.querySelector('.popup_opened');
-  popup.classList.remove('popup_opened');
-  popup.removeEventListener('click', closeOnBtn);
-}
+imagePopupCloseBtn.addEventListener('click', () => closePopup(imagePopup));
 
 function openImagePopup(title, url) {
-  const popup = document.querySelector('.image-popup');
-  const popupImg = popup.querySelector('.image-popup__image');
-  const popupImgTitle = popup.querySelector('.image-popup__text');
-  const popupCloseBtn = popup.querySelector('.image-popup__button-close');
   popupImg.src = url;
   popupImg.alt = title;
   popupImgTitle.textContent = title;
-  addClosingListeners(popup);
-  popupCloseBtn.addEventListener('click', closeOnBtn);
-  popup.classList.add('popup_opened');
+  openPopup(imagePopup);
 }
 
 function addClosingListeners(popup) {
@@ -98,9 +92,7 @@ addBtn.addEventListener('click', () => {
   openPopup(addPopup);
 });
 
-addCardPopupBtn.addEventListener('click', () => {
-  closePopup(addPopup);
-});
+addCardPopupBtn.addEventListener('click', () => closePopup(addPopup));
 
 editBtn.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
@@ -114,9 +106,7 @@ editForm.addEventListener('submit', () => {
   closePopup(editPopup);
 });
 
-editCardPopupBtn.addEventListener('click', () => {
-  closePopup(editPopup);
-});
+editCardPopupBtn.addEventListener('click', () => closePopup(editPopup));
 
 addForm.addEventListener('submit', () => {
   cardsContainer.prepend(new Card(titleInput.value,
