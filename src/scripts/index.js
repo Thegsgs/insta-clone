@@ -2,11 +2,7 @@
 
 import { Card } from './Card.js';
 import { initialCards } from './initial-cards.js';
-import {
-  resetValidation,
-  resetSubmitBtn,
-  FormValidator
-} from './FormValidator.js';
+import { FormValidator } from './FormValidator.js';
 import Section from './Section.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
