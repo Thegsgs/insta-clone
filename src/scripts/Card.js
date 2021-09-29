@@ -1,4 +1,4 @@
-class Card {
+export class Card {
   constructor(title, url, selector, { handlePopupOpen }) {
     this._title = title;
     this._url = url;
@@ -38,23 +38,19 @@ class Card {
       this._delCard(evt);
     });
     this._elementImage.addEventListener('click', () => {
-      this._handlePopupOpen(this._title, this._url);
+      this._handlePopupOpen();
     });
 
   }
 
   createCard() {
     this._setCardElements();
-
     this._elementTitle.textContent = this._title;
     this._elementImage.src = this._url;
     this._elementImage.alt = this._title;
-
     this._setEventLiteners();
 
     return this._element;
   }
 
 }
-
-export { Card };

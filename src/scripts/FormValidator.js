@@ -85,7 +85,6 @@ function resetSubmitBtn(popup, validationObject) {
   }
 }
 
-
 export {
   resetValidation,
   resetSubmitBtn,
