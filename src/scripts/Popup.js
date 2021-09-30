@@ -7,13 +7,13 @@ export default class Popup {
 
   _handleEscClose(evt) {
     if (evt.key === 'Escape') {
-      this.close(this._popup);
+      this.close();
     }
   }
 
   _handleClickClose(evt) {
     if (evt.target === this._popup) {
-      this.close(this._popup);
+      this.close();
     }
   }
 
