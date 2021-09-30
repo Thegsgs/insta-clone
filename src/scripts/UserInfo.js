@@ -7,11 +7,11 @@ export default class UserInfo {
     this._nameField = profileName;
     this._jobField = profileJob;
   }
-  getUserInfo({ name, job }) {
-    const userData = {};
-    userData.name = name;
-    userData.job = job;
-
+  getUserInfo() {
+    const userData = {
+      name: this._nameField.textContent,
+      job: this._jobField.textContent
+    };
     return userData;
   }
 

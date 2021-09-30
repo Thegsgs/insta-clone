@@ -70,8 +70,9 @@ const editPopupClass = new PopupWithForm({
     userInfo.setUserInfo({ name: inputs.name, job: inputs.job });
   },
   handlePopupOpen: () => {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
+    const userData = userInfo.getUserInfo();
+    nameInput.value = userData.name;
+    jobInput.value = userData.job;
     editPopupClass.setEventListeners();
   },
 }, {
