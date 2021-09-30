@@ -35,15 +35,15 @@ const editForm = document.querySelector('.popup__form_type_edit-profile');
 const formList = document.querySelectorAll(validationObject.formSelector);
 const imagePopup = document.querySelector('.image-popup');
 
+const imgPopupClass = new PopupWithImage(imagePopup);
+
 const cardCreation = (title, link) => {
   const card = new Card(
     title,
     link,
     "#element-template", {
       handlePopupOpen: () => {
-        const createPopup = new PopupWithImage({ title: title, url: link }, imagePopup);
-        createPopup.createPopup();
-        createPopup.open();
+        imgPopupClass.open(link, title);
       }
     }).createCard();
   return card;

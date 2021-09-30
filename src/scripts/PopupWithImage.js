@@ -1,20 +1,12 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithImage extends Popup {
-  constructor({ title, url }, popup) {
+  constructor(popup) {
     super(popup);
     this._popupImg = this._popup.querySelector('.image-popup__image');
     this._button = this._popup.querySelector('.image-popup__button-close');
     this._popupTitle = this._popup.querySelector('.image-popup__text');
-    this._url = url;
-    this._title = title;
     this._handleButtonClose = this._handleButtonClose.bind(this);
-  }
-
-  createPopup() {
-    this._popupImg.src = this._url;
-    this._popupImg.alt = this._title;
-    this._popupTitle.textContent = this._title;
   }
 
   _handleButtonClose() {
@@ -30,7 +22,10 @@ export default class PopupWithImage extends Popup {
     this._button.removeEventListener('click', this._handleButtonClose);
   }
 
-  open() {
+  open(url, title) {
+    this._popupImg.src = url;
+    this._popupImg.alt = title;
+    this._popupTitle.textContent = this._title;
     super.open();
   }
 
