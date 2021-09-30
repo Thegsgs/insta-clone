@@ -37,75 +37,64 @@ const editForm = document.querySelector('.popup__form_type_edit-profile');
 const formList = document.querySelectorAll(validationObject.formSelector);
 const imagePopup = document.querySelector('.image-popup');
 
+const cardCreation = (title, link) => {
+  const card = new Card(
+    title,
+    link,
+    "#element-template", {
+      handlePopupOpen: () => {
+        const createPopup = new PopupWithImage({ title: title, url: link }, imagePopup);
+        createPopup.createPopup();
+        createPopup.open();
+      }
+    }).createCard();
+  return card;
+}
+
 // Creating initial cards.
 
 const cardList = new Section({
   items: initialCards,
   renderer: (cardElement) => {
-    const card = new Card(
-      cardElement.name,
-      cardElement.link,
-      "#element-template", {
-        handlePopupOpen: () => {
-          const createPopup = new PopupWithImage({ url: cardElement.link, title: cardElement.name },
-            imagePopup);
-          createPopup.setEventListeners();
-          createPopup.open();
-        }
-      })
-    const finishedCard = card.createCard();
+    const finishedCard = cardCreation(cardElement.name, cardElement.link);
     cardList.addItem(finishedCard);
   }
 }, '.elements');
 
 // Popup handlers
 
+const userInfo = new UserInfo({ name: "", job: "" });
+
 const editPopupClass = new PopupWithForm({
-  inputField1: nameInput,
-  inputField2: jobInput
-}, {
-  handleFormSubmit: (inputObj) => {
-    const postUser = new UserInfo({ name: inputObj.input1, job: inputObj.input2 });
-    postUser.setUserInfo();
+  handleFormSubmit: (inputs) => {
+    userInfo.setUserInfo({ name: inputs.name, job: inputs.job });
   },
   handlePopupOpen: () => {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
+    editPopupClass.setEventListeners();
   },
 }, {
   popup: editPopup,
   form: editForm,
   button: editPopupBtn
 });
-editPopupClass.setEventListeners();
 
 const addPopupClass = new PopupWithForm({
-  inputField1: titleInput,
-  inputField2: urlInput
-}, {
-  handleFormSubmit: () => {
-    cardsContainer.prepend(new Card(
-      titleInput.value,
-      urlInput.value,
-      "#element-template", {
-        handlePopupOpen: (inputObj) => {
-          const createPopup = new PopupWithImage({ url: inputObj.input1, title: inputObj.input2 },
-            imagePopup);
-          createPopup.setEventListeners();
-          createPopup.open();
-        }
-      }).createCard());
+  handleFormSubmit: (inputs) => {
+    cardsContainer.prepend(cardCreation(inputs.title, inputs.url));
   },
   handlePopupOpen: () => {
     titleInput.value = "";
     urlInput.value = "";
+    addPopupClass.setEventListeners();
   },
 }, {
   popup: addPopup,
   form: addForm,
   button: addPopupBtn
 });
-addPopupClass.setEventListeners();
+
 
 // Form validation
 

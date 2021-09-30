@@ -3,34 +3,45 @@ import { validationObject } from "./index.js";
 import { resetSubmitBtn, resetValidation } from "./FormValidator.js";
 
 export default class PopupWithForm extends Popup {
-  constructor({ inputField1, inputField2 }, { handleFormSubmit, handlePopupOpen }, { popup, form, button }) {
+  constructor({ handleFormSubmit, handlePopupOpen }, { popup, form, button }) {
     super(popup);
     this._handleFormSubmit = handleFormSubmit;
     this._handlePopupOpen = handlePopupOpen;
     this._form = form;
     this._button = button;
-    this._inputField1 = inputField1;
-    this._inputField2 = inputField2;
+    this._handleButtonClose = this._handleButtonClose.bind(this);
+    this._handleSubmission = this._handleSubmission.bind(this);
   }
 
-  _getInputValues() {
-    const inputObj = {
-      input1: this._inputField1.value,
-      input2: this._inputField2.value
-    }
-
+  _getInputValues(form) {
+    const inputList = Array.from(form.querySelectorAll('.popup__input'));
+    const inputObj = {};
+    inputList.forEach(inputElement => {
+      const inputName = inputElement.name.split("-")[0];
+      inputObj[inputName] = inputElement.value;
+    });
+    console.log(inputObj)
     return inputObj;
+  }
+
+  _handleSubmission() {
+    this._handleFormSubmit(this._getInputValues(this._form));
+    this.close();
+  }
+
+  _handleButtonClose() {
+    this.close();
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener('submit', () => {
-      this._handleFormSubmit(this._getInputValues());
-      this.close();
-    });
-    this._button.addEventListener('click', () => {
-      this.close();
-    });
+    this._form.addEventListener('submit', this._handleSubmission);
+    this._button.addEventListener('click', this._handleButtonClose);
+  }
+
+  _removeEventListeners() {
+    this._form.removeEventListener('submit', this._handleSubmission);
+    this._button.removeEventListener('click', this._handleButtonClose);
   }
 
   open() {
@@ -41,6 +52,8 @@ export default class PopupWithForm extends Popup {
   close() {
     resetSubmitBtn(this._popup, validationObject);
     resetValidation(this._popup, validationObject);
+    super._removeEventListeners();
+    this._removeEventListeners();
     super.close();
   }
 }
