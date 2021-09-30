@@ -20,7 +20,6 @@ export default class PopupWithForm extends Popup {
       const inputName = inputElement.name.split("-")[0];
       inputObj[inputName] = inputElement.value;
     });
-    console.log(inputObj)
     return inputObj;
   }
 
