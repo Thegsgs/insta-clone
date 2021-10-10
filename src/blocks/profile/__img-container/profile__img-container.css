@@ -1,0 +1,13 @@
+.profile__img-container {
+  position: relative;
+  margin-right: 33px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__img-container {
+    margin-bottom: 30px;
+    margin-right: 0;
+  }
+}

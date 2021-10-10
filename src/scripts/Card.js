@@ -26,7 +26,7 @@ export class Card {
     evt.target.classList.toggle('element__button-like_active');
   }
 
-  _delCard(evt) {
+  delCard(evt) {
     evt.target.closest('.element').remove();
   }
 
@@ -35,7 +35,7 @@ export class Card {
       this._toggleLike(evt);
     });
     this._elementBtnDel.addEventListener('click', (evt) => {
-      this._delCard(evt);
+      this.delCard(evt);
     });
     this._elementImage.addEventListener('click', () => {
       this._handlePopupOpen();

@@ -26,17 +26,22 @@ const addPopupBtn = document.querySelector('.popup__close_type_add');
 const editPopupBtn = document.querySelector('.popup__close_type_edit');
 const editPopup = document.querySelector('.popup_type_edit');
 const addPopup = document.querySelector('.popup_type_add');
-export const nameInput = editPopup.querySelector('#name-input');
-export const jobInput = editPopup.querySelector('#job-input');
-export const titleInput = addPopup.querySelector('#title-input');
-export const urlInput = addPopup.querySelector('#url-input');
 const addForm = document.querySelector('.popup__form_type_add-card');
 const editForm = document.querySelector('.popup__form_type_edit-profile');
 const formList = document.querySelectorAll(validationObject.formSelector);
 const imagePopup = document.querySelector('.image-popup');
+const nameInput = editPopup.querySelector('#name-input');
+const jobInput = editPopup.querySelector('#job-input');
+const titleInput = addPopup.querySelector('#title-input');
+const urlInput = addPopup.querySelector('#url-input');
+const userAvatar = document.querySelector('.profile__avatar');
+const imgOverlay = document.querySelector('.profile__avatar-overlay');
+const imgChangePopup = document.querySelector('.popup_type_profile-picture');
+const imgInput = imgChangePopup.querySelector('#url-input');
+const imgChangeForm = imgChangePopup.querySelector('.popup__form_type_change-picture');
+const imgChangeBtn = imgChangePopup.querySelector('.popup__close_type_change-picture');
 
 const imgPopupClass = new PopupWithImage(imagePopup);
-
 const cardCreation = (title, link) => {
   const card = new Card(
     title,
@@ -79,6 +84,20 @@ const editPopupClass = new PopupWithForm({
   button: editPopupBtn
 });
 
+const editImgPopupClass = new PopupWithForm({
+  handleFormSubmit: (img) => {
+    userAvatar.src = img.url;
+  },
+  handlePopupOpen: () => {
+    imgInput.value = "";
+    editImgPopupClass.setEventListeners();
+  }
+}, {
+  popup: imgChangePopup,
+  form: imgChangeForm,
+  button: imgChangeBtn
+});
+
 const addPopupClass = new PopupWithForm({
   handleFormSubmit: (inputs) => {
     cardsContainer.prepend(cardCreation(inputs.title, inputs.url));
@@ -110,6 +129,12 @@ editBtn.addEventListener('click', () => {
 addBtn.addEventListener('click', () => {
   addPopupClass.open();
 });
+
+imgOverlay.addEventListener('click', () => {
+  editImgPopupClass.open();
+});
+
+
 
 // Rendering initial cards
 
