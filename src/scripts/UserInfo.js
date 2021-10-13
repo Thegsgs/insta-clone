@@ -1,16 +1,11 @@
+import { nameField, jobField } from "./index.js";
+
 export default class UserInfo {
   constructor({ name, job }) {
     this._nameInput = name;
     this._jobInput = job;
-    this._nameField = document.querySelector('.profile__name');
-    this._jobField = document.querySelector('.profile__job');
-  }
-  getUserInfo() {
-    const userData = {
-      name: this._nameField.textContent,
-      job: this._jobField.textContent
-    };
-    return userData;
+    this._nameField = nameField;
+    this._jobField = jobField;
   }
 
   setUserInfo({ name, job }) {

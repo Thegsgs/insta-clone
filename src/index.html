@@ -17,13 +17,13 @@
   <main class="content">
     <section class="profile">
       <div class="profile__img-container">
-        <img class="profile__avatar" src="./images/jacques.jpg" alt="Jaucques Cousteau">
+        <img class="profile__avatar" src="" alt="">
         <div class="profile__avatar-overlay"></div>
       </div>
       <div class="profile__info">
-        <h1 class="profile__name">Jacques Cousteau</h1>
+        <h1 class="profile__name"></h1>
         <button type="button" class="profile__button-edit"><img class="profile__icon-edit" src="./images/edit-icon.svg" alt="edit icon"></button>
-        <p class="profile__job">Explorer</p>
+        <p class="profile__job"></p>
       </div>
       <button type="button" class="profile__button-add"><img class="profile__icon-add" src="./images/add-icon.svg" alt="add icon"></button>
     </section>
@@ -45,9 +45,9 @@
 
   <div class="popup popup_type_edit">
     <div class="popup__container">
-      <button type="button" class="popup__close popup__close_type_edit"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <button type="button" class="popup__close"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
       <h2 class="popup__title">Edit profile</h2>
-      <form class="popup__form popup__form_type_edit-profile" method="POST" name="info-form" novalidate>
+      <form class="popup__form" method="POST" name="info-form" novalidate>
         <input class="popup__input" id='name-input' type="text" name="name-input" placeholder="Name" required minlength="2" maxlength="40">
         <span class="popup__error popup__error_type_name-input"></span>
         <input class="popup__input" id='job-input' type="text" name="job-input" placeholder="About me" required minlength="2" maxlength="200">
@@ -59,9 +59,9 @@
 
   <div class="popup popup_type_confirm">
     <div class="popup__container">
-      <button type="button" class="popup__close popup__close_type_edit"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <button type="button" class="popup__close"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
       <h2 class="popup__title">Are you sure?</h2>
-      <form class="popup__form popup__form_type_edit-profile" method="POST" name="info-form" novalidate>
+      <form class="popup__form popup__form_type_confirm" method="POST" name="info-form" novalidate>
         <button type="submit" class="popup__submit">Yes</button>
       </form>
     </div>
@@ -69,7 +69,7 @@
 
   <div class="popup popup_type_profile-picture">
     <div class="popup__container">
-      <button type="button" class="popup__close popup__close_type_change-picture"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <button type="button" class="popup__close"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
       <h2 class="popup__title">Change profile picture</h2>
       <form class="popup__form popup__form_type_change-picture" method="POST" name="add-form" novalidate>
         <input class="popup__input" id="url-input" type="url" name="url-input" placeholder="Image link" required>
@@ -81,12 +81,12 @@
 
   <div class="popup popup_type_add">
     <div class="popup__container">
-      <button type="button" class="popup__close popup__close_type_add"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <button type="button" class="popup__close"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
       <h2 class="popup__title">New place</h2>
-      <form class="popup__form popup__form_type_add-card" method="POST" name="add-form" novalidate>
-        <input class="popup__input" id="title-input" type="text" name="title-input" placeholder="Title" required minlength="1" maxlength="30">
+      <form class="popup__form" method="POST" name="add-form" novalidate>
+        <input class="popup__input" id="title-input" type="text" name="name-input" placeholder="Title" required minlength="1" maxlength="30">
         <span class="popup__error popup__error_type_title-input"></span>
-        <input class="popup__input" id="url-input" type="url" name="url-input" placeholder="Image link" required>
+        <input class="popup__input" id="url-input" type="url" name="link-input" placeholder="Image link" required>
         <span class="popup__error popup__error_type_url-input"></span>
         <button type="submit" class="popup__submit">Save</button>
       </form>
@@ -101,13 +101,17 @@
   </div>
     <div class="element__text-container">
       <h2 class="element__title"></h2>
-      <button type="button" class="element__button-like"><img class="element__icon-like" src="./images/button-like.svg" alt="like icon"></button>
+      <div class="element__like-container">
+        <button type="button" class="element__button-like"><img class="element__icon-like" src="./images/button-like.svg" alt="like icon"></button>
+        <p class="element__like-count"></p>
+      </div>
+
     </div>
   </article>
 </template>
 
-  <script src="./scripts/Popup.js" type="module"></script>
   <script src="./scripts/Card.js" type="module"></script>
+  <script src="./scripts/Popup.js" type="module"></script>
   <script src="./scripts/index.js" type="module"></script>
 
 </body>
