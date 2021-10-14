@@ -61,9 +61,6 @@ export const jobField = document.querySelector('.profile__job');
 const userAvatar = document.querySelector('.profile__avatar');
 const imgOverlay = document.querySelector('.profile__avatar-overlay');
 
-// Image popup
-const imagePopup = document.querySelector('.image-popup');
-
 export const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-12",
   headers: {
@@ -72,6 +69,8 @@ export const api = new Api({
   }
 });
 
+// Image popup selector
+const imagePopup = document.querySelector('.image-popup');
 
 // Creating UserInfo class instance
 const userInfo = new UserInfo({ name: "", job: "" });
@@ -170,16 +169,15 @@ imgOverlay.addEventListener('click', () => {
 // Getting data upon site loading
 Promise.all([api.getUserInfo(), api.getInitialCards(), api.getUserImg()])
   .then(([userData, initialCardsData, userImg]) => {
+
     // Rendering initial cards
     const cardList = new Section({
       items: initialCardsData,
       renderer: (cardElement) => {
-        const finishedCard = addDomCard(cardElement);
-        cardList.addItem(finishedCard);
+        cardList.addItem(addDomCard(cardElement));
       }
-    }, '.elements')
+    }, '.elements');
     cardList.renderer();
-
 
     // Setting initial user data
     nameField.textContent = userData.name;
