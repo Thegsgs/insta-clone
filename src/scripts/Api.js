@@ -5,13 +5,21 @@ export default class Api {
     this._currentUser = this.getUserInfo();
   }
 
+  _handleResponse(res) {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(console.log(res.status));
+    }
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
         headers: this._headers
       })
-      .then(res => res.ok ? res.json() : Promise.reject(console.log(res.status)))
+      .then(res => this._handleResponse(res))
       .then(res => { return res })
-      .catch((error) => { console.log(error); });
+      .catch((error) => { `Error, ${error}` });
   }
 
   uploadCard(title, link, submitButton) {
@@ -25,56 +33,62 @@ export default class Api {
           link: link
         })
       })
-      .then(res => res.ok ? res.json() : Promise.reject(console.log(res.status)))
+      .then(res => this._handleResponse(res))
       .then(cardObject => {
         submitButton.innerText = "Save";
-        return cardObject
+        return cardObject;
       })
-      .catch((error) => { console.log(error); });
+      .catch((error) => { `Error, ${error}` });
   }
 
   uploadProfileImg(link, submitButton) {
     submitButton.innerText = "Saving...";
 
-    fetch(`${this._baseUrl}/users/me/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: this._headers,
         body: JSON.stringify({
           avatar: link
         })
-      }).then(() => submitButton.innerText = "Save")
-      .catch((error) => { console.log(error); });
+      }).then((res) => {
+        submitButton.innerText = "Save";
+        return res.json();
+      })
+      .catch((error) => { `Error, ${error}` });
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
         headers: this._headers
       })
-      .then(res => res.ok ? res.json() : Promise.reject(console.log(res.status)))
+      .then(res => this._handleResponse(res))
       .then(res => { return res })
-      .catch((error) => { console.log(error); });
+      .catch((error) => { `Error, ${error}` });
   }
 
   getUserImg() {
     return fetch(`${this._baseUrl}/users/me`, {
         headers: this._headers
       })
-      .then(res => res.ok ? res.json() : Promise.reject(console.log(res.status)))
-      .catch((error) => { console.log(error); });
+      .then(res => this._handleResponse(res))
+      .catch((error) => { `Error, ${error}` });
   }
 
   uploadUserInfo({ name, job }, submitButton) {
     submitButton.innerText = "Saving...";
 
-    fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
         method: "PATCH",
         headers: this._headers,
         body: JSON.stringify({
           name: name,
           about: job
         })
-      }).then(() => { submitButton.innerText = "Save"; })
-      .catch((error) => { console.log(error); });
+      }).then((res) => {
+        submitButton.innerText = "Save";
+        return res.json();
+      })
+      .catch((error) => { `Error, ${error}` });
   }
 
   deleteCard(cardId, deleteButton) {
@@ -84,25 +98,25 @@ export default class Api {
         method: "DELETE",
         headers: this._headers
       }).then(() => { deleteButton.innerText = "Yes" })
-      .catch((error) => { console.log(error); });
+      .catch((error) => { `Error, ${error}` });
   }
 
   removeLike(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
         method: "DELETE",
         headers: this._headers,
-      }).then(res => res.ok ? res.json() : Promise.reject(console.log(res.status)))
+      }).then(res => this._handleResponse(res))
       .then(res => { return res })
-      .catch((error) => { console.log(error); });
+      .catch((error) => { `Error, ${error}` });
   }
 
   addLike(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
         method: "PUT",
         headers: this._headers,
-      }).then(res => res.ok ? res.json() : Promise.reject(console.log(res.status)))
+      }).then(res => this._handleResponse(res))
       .then(res => { return res })
-      .catch((error) => { console.log(error); });
+      .catch((error) => { `Error, ${error}` });
 
   }
 }

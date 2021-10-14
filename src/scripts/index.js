@@ -32,7 +32,7 @@ const addForm = addPopup.querySelector('.popup__form');
 const addPopupCloseBtn = addPopup.querySelector('.popup__close');
 const addPopupSubmitBtn = addPopup.querySelector('.popup__submit');
 const titleInput = addPopup.querySelector('#title-input');
-const urlInput = addPopup.querySelector('#url-input');
+const urlInput = addPopup.querySelector('#url-input-add');
 
 // editPopup elements
 const editPopup = document.querySelector('.popup_type_edit');
@@ -45,7 +45,7 @@ const jobInput = editPopup.querySelector('#job-input');
 // Popup for changing profile img elements
 const imgChangePopup = document.querySelector('.popup_type_profile-picture');
 const imgChangeSubmitBtn = imgChangePopup.querySelector('.popup__submit');
-const imgInput = imgChangePopup.querySelector('#url-input');
+const imgInput = imgChangePopup.querySelector('#url-input-profile');
 const imgChangeForm = imgChangePopup.querySelector('.popup__form');
 const imgChangeBtn = imgChangePopup.querySelector('.popup__close');
 
@@ -73,55 +73,44 @@ export const api = new Api({
 });
 
 
-// Creating userinfo class and getting the current user from the server
+// Creating UserInfo class instance
 const userInfo = new UserInfo({ name: "", job: "" });
-export const currentUser = api.getUserInfo();
 
 // Function for adding the card to the DOM
 const addDomCard = (recievedCard) => {
-  const card = new Card(recievedCard,
+  const card = new Card(recievedCard, api.getUserInfo(),
     "#element-template", {
       handlePopupOpen: () => {
-        imgPopupClass.open(recievedCard.link, recievedCard.name);
+        englargedImgPopup.open(recievedCard.link, recievedCard.name);
       },
       handleDelete: (delCard, cardId, ) => {
-        confirmPopupClass.open(delCard, cardId, confirmPopupDelBtn);
+        confirmDelPopup.open(delCard, cardId, confirmPopupDelBtn);
       }
     }).createCard();
   return card;
 }
 
 // Enlarged image popup
-const imgPopupClass = new PopupWithImage(imagePopup);
+const englargedImgPopup = new PopupWithImage(imagePopup);
 
 // Popup for confirming card deletion
-const confirmPopupClass = new PopupWithConfirm(
+const confirmDelPopup = new PopupWithConfirm(
   confirmPopup,
   confirmPopupBtn,
   confirmPopupForm);
 
-// Creating initial cards
-const cardList = new Section({
-  items: api.getInitialCards(),
-  renderer: (cardElement) => {
-    const finishedCard = addDomCard(cardElement);
-    cardList.addItem(finishedCard);
-  }
-}, '.elements');
-
 // Profile editing popup
-const editPopupClass = new PopupWithForm({
+const editProfilePopup = new PopupWithForm({
   handleFormSubmit: (inputs) => {
-    api.uploadUserInfo({ name: inputs.name, job: inputs.job }, editPopupSubmitBtn);
-    userInfo.setUserInfo({ name: inputs.name, job: inputs.job });
+    api.uploadUserInfo({ name: inputs.name, job: inputs.job }, editPopupSubmitBtn)
+      .then(res => userInfo.setUserInfo({ name: res.name, job: res.about }));
+
   },
   handlePopupOpen: () => {
     api.getUserInfo().then(userData => {
       nameInput.value = userData.name;
       jobInput.value = userData.about;
     });
-
-    editPopupClass.setEventListeners();
   },
 }, {
   popup: editPopup,
@@ -130,14 +119,13 @@ const editPopupClass = new PopupWithForm({
 });
 
 // Profile picture changing popup
-const editImgPopupClass = new PopupWithForm({
-  handleFormSubmit: (img) => {
-    userAvatar.src = img.url;
-    api.uploadProfileImg(imgInput.value, imgChangeSubmitBtn);
+const editProfileImgPopup = new PopupWithForm({
+  handleFormSubmit: () => {
+    api.uploadProfileImg(imgInput.value, imgChangeSubmitBtn)
+      .then(res => userAvatar.src = res.avatar);
   },
   handlePopupOpen: () => {
     imgInput.value = "";
-    editImgPopupClass.setEventListeners();
   }
 }, {
   popup: imgChangePopup,
@@ -146,14 +134,14 @@ const editImgPopupClass = new PopupWithForm({
 });
 
 // Popup for adding new images
-const addCardPopupClass = new PopupWithForm({
+const addCardPopup = new PopupWithForm({
   handleFormSubmit: (inputs) => {
     api.uploadCard(inputs.name, inputs.link, addPopupSubmitBtn).then(recievedCard => cardsContainer.prepend(addDomCard(recievedCard)));
   },
   handlePopupOpen: () => {
     titleInput.value = "";
     urlInput.value = "";
-    addCardPopupClass.setEventListeners();
+    addCardPopup.setEventListeners();
   }
 }, {
   popup: addPopup,
@@ -168,26 +156,34 @@ formList.forEach(formElement => {
 
 // Button event listeners
 editBtn.addEventListener('click', () => {
-  editPopupClass.open();
+  editProfilePopup.open();
 });
 
 addBtn.addEventListener('click', () => {
-  addCardPopupClass.open();
+  addCardPopup.open();
 });
 
 imgOverlay.addEventListener('click', () => {
-  editImgPopupClass.open();
+  editProfileImgPopup.open();
 });
 
-// Rendering initial cards
-api.getUserImg().then(userData => {
-  userAvatar.src = userData.avatar;
-});
+// Getting data upon site loading
+Promise.all([api.getUserInfo(), api.getInitialCards(), api.getUserImg()])
+  .then(([userData, initialCardsData, userImg]) => {
+    // Rendering initial cards
+    const cardList = new Section({
+      items: initialCardsData,
+      renderer: (cardElement) => {
+        const finishedCard = addDomCard(cardElement);
+        cardList.addItem(finishedCard);
+      }
+    }, '.elements')
+    cardList.renderer();
 
-// Getting info about the user from the API when the site loads
-api.getUserInfo().then(userData => {
-  nameField.textContent = userData.name;
-  jobField.textContent = userData.about;
-});
 
-cardList.renderer();
+    // Setting initial user data
+    nameField.textContent = userData.name;
+    jobField.textContent = userData.about;
+    userAvatar.src = userImg.avatar;
+  })
+  .catch(error => console.log(`Error, ${error}`));

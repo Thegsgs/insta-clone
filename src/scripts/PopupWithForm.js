@@ -45,6 +45,7 @@ export default class PopupWithForm extends Popup {
 
   open() {
     this._handlePopupOpen();
+    this.setEventListeners();
     super.open();
   }
 
