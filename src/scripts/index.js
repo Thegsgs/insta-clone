@@ -69,106 +69,43 @@ export const api = new Api({
   }
 });
 
-// Image popup selector
-const imagePopup = document.querySelector('.image-popup');
-
-// Creating UserInfo class instance
-const userInfo = new UserInfo({ name: "", job: "" });
-
-// Function for adding the card to the DOM
-const addDomCard = (recievedCard) => {
-  const card = new Card(recievedCard, api.getUserInfo(),
-    "#element-template", {
-      handlePopupOpen: () => {
-        englargedImgPopup.open(recievedCard.link, recievedCard.name);
-      },
-      handleDelete: (delCard, cardId, ) => {
-        confirmDelPopup.open(delCard, cardId, confirmPopupDelBtn);
-      }
-    }).createCard();
-  return card;
-}
-
-// Enlarged image popup
-const englargedImgPopup = new PopupWithImage(imagePopup);
-
-// Popup for confirming card deletion
-const confirmDelPopup = new PopupWithConfirm(
-  confirmPopup,
-  confirmPopupBtn,
-  confirmPopupForm);
-
-// Profile editing popup
-const editProfilePopup = new PopupWithForm({
-  handleFormSubmit: (inputs) => {
-    api.uploadUserInfo({ name: inputs.name, job: inputs.job }, editPopupSubmitBtn)
-      .then(res => userInfo.setUserInfo({ name: res.name, job: res.about }));
-
-  },
-  handlePopupOpen: () => {
-    api.getUserInfo().then(userData => {
-      nameInput.value = userData.name;
-      jobInput.value = userData.about;
-    });
-  },
-}, {
-  popup: editPopup,
-  form: editForm,
-  button: editPopupCloseBtn
-});
-
-// Profile picture changing popup
-const editProfileImgPopup = new PopupWithForm({
-  handleFormSubmit: () => {
-    api.uploadProfileImg(imgInput.value, imgChangeSubmitBtn)
-      .then(res => userAvatar.src = res.avatar);
-  },
-  handlePopupOpen: () => {
-    imgInput.value = "";
-  }
-}, {
-  popup: imgChangePopup,
-  form: imgChangeForm,
-  button: imgChangeBtn
-});
-
-// Popup for adding new images
-const addCardPopup = new PopupWithForm({
-  handleFormSubmit: (inputs) => {
-    api.uploadCard(inputs.name, inputs.link, addPopupSubmitBtn).then(recievedCard => cardsContainer.prepend(addDomCard(recievedCard)));
-  },
-  handlePopupOpen: () => {
-    titleInput.value = "";
-    urlInput.value = "";
-    addCardPopup.setEventListeners();
-  }
-}, {
-  popup: addPopup,
-  form: addForm,
-  button: addPopupCloseBtn
-});
-
-// Form validation for all forms
-formList.forEach(formElement => {
-  new FormValidator(validationObject, formElement).enableValidation();
-});
-
-// Button event listeners
-editBtn.addEventListener('click', () => {
-  editProfilePopup.open();
-});
-
-addBtn.addEventListener('click', () => {
-  addCardPopup.open();
-});
-
-imgOverlay.addEventListener('click', () => {
-  editProfileImgPopup.open();
-});
-
 // Getting data upon site loading
 Promise.all([api.getUserInfo(), api.getInitialCards(), api.getUserImg()])
   .then(([userData, initialCardsData, userImg]) => {
+
+    // Function for adding the card to the DOM
+    const addDomCard = (recievedCard) => {
+      const card = new Card(recievedCard, userData,
+        "#element-template", {
+          handlePopupOpen: () => {
+            englargedImgPopup.open(recievedCard.link, recievedCard.name);
+          },
+          handleDelete: (delCard, cardId, ) => {
+            confirmDelPopup.open(delCard, cardId, confirmPopupDelBtn);
+          }
+        }).createCard();
+      return card;
+    }
+
+    // Profile editing popup
+    const editProfilePopup = new PopupWithForm({
+      handleFormSubmit: (inputs) => {
+        api.uploadUserInfo({ name: inputs.name, job: inputs.job }, editPopupSubmitBtn)
+          .then(res => {
+            userInfo.setUserInfo({ name: res.name, job: res.about });
+            editProfilePopup.close();
+          });
+
+      },
+      handlePopupOpen: () => {
+        nameInput.value = nameField.textContent;
+        jobInput.value = jobField.textContent;
+      },
+    }, {
+      popup: editPopup,
+      form: editForm,
+      button: editPopupCloseBtn
+    });
 
     // Rendering initial cards
     const cardList = new Section({
@@ -183,5 +120,76 @@ Promise.all([api.getUserInfo(), api.getInitialCards(), api.getUserImg()])
     nameField.textContent = userData.name;
     jobField.textContent = userData.about;
     userAvatar.src = userImg.avatar;
+
+    // Image popup selector
+    const imagePopup = document.querySelector('.image-popup');
+
+    // Creating UserInfo class instance
+    const userInfo = new UserInfo({ name: "", job: "" });
+
+    // Enlarged image popup
+    const englargedImgPopup = new PopupWithImage(imagePopup);
+
+    // Popup for confirming card deletion
+    const confirmDelPopup = new PopupWithConfirm(
+      confirmPopup,
+      confirmPopupBtn,
+      confirmPopupForm);
+
+    // Profile picture changing popup
+    const editProfileImgPopup = new PopupWithForm({
+      handleFormSubmit: () => {
+        api.uploadProfileImg(imgInput.value, imgChangeSubmitBtn)
+          .then(res => {
+            userAvatar.src = res.avatar;
+            editProfileImgPopup.close();
+          });
+      },
+      handlePopupOpen: () => {
+        imgInput.value = "";
+      }
+    }, {
+      popup: imgChangePopup,
+      form: imgChangeForm,
+      button: imgChangeBtn
+    });
+
+    // Popup for adding new images
+    const addCardPopup = new PopupWithForm({
+      handleFormSubmit: (inputs) => {
+        api.uploadCard(inputs.name, inputs.link, addPopupSubmitBtn)
+          .then(recievedCard => {
+            cardsContainer.prepend(addDomCard(recievedCard));
+            addCardPopup.close();
+          });
+      },
+      handlePopupOpen: () => {
+        titleInput.value = "";
+        urlInput.value = "";
+      }
+    }, {
+      popup: addPopup,
+      form: addForm,
+      button: addPopupCloseBtn
+    });
+
+    // Form validation for all forms
+    formList.forEach(formElement => {
+      new FormValidator(validationObject, formElement).enableValidation();
+    });
+
+    // Button event listeners
+    addBtn.addEventListener('click', () => {
+      addCardPopup.open();
+    });
+
+    imgOverlay.addEventListener('click', () => {
+      editProfileImgPopup.open();
+    });
+
+    editBtn.addEventListener('click', () => {
+      editProfilePopup.open();
+    });
+
   })
   .catch(error => console.log(`Error, ${error}`));

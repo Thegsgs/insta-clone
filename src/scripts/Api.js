@@ -84,9 +84,11 @@ export default class Api {
           name: name,
           about: job
         })
-      }).then((res) => {
+      })
+      .then(res => this._handleResponse(res))
+      .then((res) => {
         submitButton.innerText = "Save";
-        return res.json();
+        return res;
       })
       .catch((error) => { `Error, ${error}` });
   }
@@ -94,10 +96,14 @@ export default class Api {
   deleteCard(cardId, deleteButton) {
     deleteButton.innerText = "Deleting...";
 
-    fetch(`${this._baseUrl}/cards/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
         method: "DELETE",
         headers: this._headers
-      }).then(() => { deleteButton.innerText = "Yes" })
+      }).then(res => this._handleResponse(res))
+      .then((res) => {
+        deleteButton.innerText = "Yes";
+        return res;
+      })
       .catch((error) => { `Error, ${error}` });
   }
 

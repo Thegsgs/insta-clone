@@ -39,25 +39,22 @@ export class Card {
   }
 
   _handleToggleLike() {
-    this._currentUser.then(userData => {
-      if (this._likeArray.some(arrayObject => arrayObject._id === userData._id)) {
+    if (this._likeArray.some(arrayObject => arrayObject._id === this._currentUser._id)) {
+      this._elementBtnLike.classList.remove('element__button-like_active');
 
-        this._elementBtnLike.classList.remove('element__button-like_active');
+      // Make API call to remove users like
+      api.removeLike(this._cardId).then(res => {
+        this._refreshLikesArray(res);
+      });
 
-        // Make API call to remove users like
-        api.removeLike(this._cardId).then(res => {
-          this._refreshLikesArray(res);
-        });
+    } else {
+      this._elementBtnLike.classList.add('element__button-like_active');
 
-      } else {
-        this._elementBtnLike.classList.add('element__button-like_active');
-
-        // Make API call to add users like
-        api.addLike(this._cardId).then(res => {
-          this._refreshLikesArray(res);
-        });
-      }
-    });
+      // Make API call to add users like
+      api.addLike(this._cardId).then(res => {
+        this._refreshLikesArray(res);
+      });
+    }
   }
 
   _handleDeletion() {
@@ -78,18 +75,14 @@ export class Card {
     this._elementLikeCount.textContent = this._card.likes.length;
 
     // Checks if card belongs to the viewer and removes delete button if not
-    this._currentUser.then(userData => {
-      if (this._cardOwnerId != userData._id) {
-        this._elementBtnDel.style.visibility = "hidden";
-      }
-    });
+    if (this._cardOwnerId != this._currentUser._id) {
+      this._elementBtnDel.style.visibility = "hidden";
+    }
 
     // Checks if viewer liked the card and makes like button active if has
-    this._currentUser.then(userData => {
-      if (this._likeArray.some(arrayObject => arrayObject._id === userData._id)) {
-        this._elementBtnLike.classList.add('element__button-like_active');
-      }
-    });
+    if (this._likeArray.some(arrayObject => arrayObject._id === this._currentUser._id)) {
+      this._elementBtnLike.classList.add('element__button-like_active');
+    }
 
     this._setEventLiteners();
 

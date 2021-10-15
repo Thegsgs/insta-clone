@@ -25,34 +25,33 @@ export default class PopupWithForm extends Popup {
 
   _handleSubmission() {
     this._handleFormSubmit(this._getInputValues(this._form));
-    this.close();
   }
 
   _handleButtonClose() {
     this.close();
   }
 
-  setEventListeners() {
+  _setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', this._handleSubmission);
     this._button.addEventListener('click', this._handleButtonClose);
   }
 
   _removeEventListeners() {
+    super._removeEventListeners();
     this._form.removeEventListener('submit', this._handleSubmission);
     this._button.removeEventListener('click', this._handleButtonClose);
   }
 
   open() {
     this._handlePopupOpen();
-    this.setEventListeners();
+    this._setEventListeners();
     super.open();
   }
 
   close() {
     resetSubmitBtn(this._popup, validationObject);
     resetValidation(this._popup, validationObject);
-    super._removeEventListeners();
     this._removeEventListeners();
     super.close();
   }
