@@ -7,25 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Around The U.S.</title>
   <link rel="stylesheet" href="./pages/index.css">
-  <link rel="shortcut icon" type="image/jpg" href="./images/jacques.jpg" />
+  <link rel="shortcut icon" type="image/jpg" href="./images/jacques.jpg">
 </head>
 
 <body class="page">
   <header class="header">
-    <img class="header__logo" src="./images/logo.svg" alt="header logo">
+    <img class="header__logo" src="<%= require('./images/logo.svg')%>" alt="header logo">
   </header>
   <main class="content">
     <section class="profile">
       <div class="profile__img-container">
-        <img class="profile__avatar" src="./images/jacques.jpg" alt="Profile picture">
+        <img class="profile__avatar" src="https://i.stack.imgur.com/y9DpT.jpg" alt="Profile picture">
         <div class="profile__avatar-overlay"></div>
       </div>
       <div class="profile__info">
         <h1 class="profile__name"></h1>
-        <button type="button" class="profile__button-edit"><img class="profile__icon-edit" src="./images/edit-icon.svg" alt="edit icon"></button>
+        <button type="button" class="profile__button-edit"><img class="profile__icon-edit" src="<%= require('./images/edit-icon.svg')%>" alt="edit icon"></button>
         <p class="profile__job"></p>
       </div>
-      <button type="button" class="profile__button-add"><img class="profile__icon-add" src="./images/add-icon.svg" alt="add icon"></button>
+      <button type="button" class="profile__button-add"><img class="profile__icon-add" src="<%= require('./images/add-icon.svg')%>" alt="add icon"></button>
     </section>
     <section class="elements">
     </section>
@@ -36,7 +36,7 @@
 
   <div class="popup image-popup">
     <div class="image-popup__container">
-      <button class="image-popup__button-close"><img class="image-popup__close-icon" src="./images/add-icon.svg" alt="close icon">
+      <button class="popup__close"><img class="popup__close-icon" src="<%= require('./images/add-icon.svg')%>" alt="close icon">
       </button>
       <img class="image-popup__image" src="https://i.stack.imgur.com/y9DpT.jpg" alt="enlarged image">
       <p class="image-popup__text">Placeholder text</p>
@@ -45,7 +45,7 @@
 
   <div class="popup popup_type_edit">
     <div class="popup__container">
-      <button type="button" class="popup__close"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <button type="button" class="popup__close"><img class="popup__close-icon" src="<%= require('./images/add-icon.svg')%>" alt="close icon"></button>
       <h2 class="popup__title">Edit profile</h2>
       <form class="popup__form" method="POST" name="info-form" novalidate>
         <input class="popup__input" id='name-input' type="text" name="name-input" placeholder="Name" required minlength="2" maxlength="40">
@@ -59,7 +59,7 @@
 
   <div class="popup popup_type_confirm">
     <div class="popup__container">
-      <button type="button" class="popup__close"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <button type="button" class="popup__close"><img class="popup__close-icon" src="<%= require('./images/add-icon.svg')%>" alt="close icon"></button>
       <h2 class="popup__title">Are you sure?</h2>
       <form class="popup__form popup__form_type_confirm" method="POST" name="info-form" novalidate>
         <button type="submit" class="popup__submit">Yes</button>
@@ -69,7 +69,7 @@
 
   <div class="popup popup_type_profile-picture">
     <div class="popup__container">
-      <button type="button" class="popup__close"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <button type="button" class="popup__close"><img class="popup__close-icon" src="<%= require('./images/add-icon.svg')%>" alt="close icon"></button>
       <h2 class="popup__title">Change profile picture</h2>
       <form class="popup__form popup__form_type_change-picture" method="POST" name="add-form" novalidate>
         <input class="popup__input" id="url-input-profile" type="url" name="url-input" placeholder="Image link" required>
@@ -81,7 +81,7 @@
 
   <div class="popup popup_type_add">
     <div class="popup__container">
-      <button type="button" class="popup__close"><img class="popup__close-icon" src="./images/add-icon.svg" alt="close icon"></button>
+      <button type="button" class="popup__close"><img class="popup__close-icon" src="<%= require('./images/add-icon.svg')%>" alt="close icon"></button>
       <h2 class="popup__title">New place</h2>
       <form class="popup__form" method="POST" name="add-form" novalidate>
         <input class="popup__input" id="title-input" type="text" name="name-input" placeholder="Title" required minlength="1" maxlength="30">
@@ -96,13 +96,13 @@
   <template id="element-template">
   <article class="element">
    <div class="element__image-container">
-    <button class="element__button-delete"><img class="element__delete-icon" src="./images/trash.svg"></button>
+    <button class="element__button-delete"><img class="element__delete-icon" src="<%= require('./images/trash.svg')%>"></button>
     <img class="element__image" src="https://i.stack.imgur.com/y9DpT.jpg">
   </div>
     <div class="element__text-container">
       <h2 class="element__title"></h2>
       <div class="element__like-container">
-        <button type="button" class="element__button-like"><img class="element__icon-like" src="./images/button-like.svg" alt="like icon"></button>
+        <button type="button" class="element__button-like"><img class="element__icon-like" src="<%= require('./images/button-like.svg')%>" alt="like icon"></button>
         <p class="element__like-count"></p>
       </div>
 
@@ -110,9 +110,7 @@
   </article>
 </template>
 
-  <script src="./scripts/Card.js" type="module"></script>
-  <script src="./scripts/Popup.js" type="module"></script>
-  <script src="./scripts/index.js" type="module"></script>
+  <script src="./index.js" type="module"></script>
 
 </body>
 

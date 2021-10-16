@@ -1,15 +1,13 @@
 import Popup from "./Popup.js";
-import { validationObject } from "./index.js";
+import { validationObject } from "./constants.js";
 import { resetSubmitBtn, resetValidation } from "./FormValidator.js";
 
 export default class PopupWithForm extends Popup {
-  constructor({ handleFormSubmit, handlePopupOpen }, { popup, form, button }) {
+  constructor({ handleFormSubmit, handlePopupOpen }, { popup, form }) {
     super(popup);
     this._handleFormSubmit = handleFormSubmit;
     this._handlePopupOpen = handlePopupOpen;
     this._form = form;
-    this._button = button;
-    this._handleButtonClose = this._handleButtonClose.bind(this);
     this._handleSubmission = this._handleSubmission.bind(this);
   }
 
@@ -27,20 +25,14 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit(this._getInputValues(this._form));
   }
 
-  _handleButtonClose() {
-    this.close();
-  }
-
   _setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', this._handleSubmission);
-    this._button.addEventListener('click', this._handleButtonClose);
   }
 
   _removeEventListeners() {
     super._removeEventListeners();
     this._form.removeEventListener('submit', this._handleSubmission);
-    this._button.removeEventListener('click', this._handleButtonClose);
   }
 
   open() {
@@ -52,7 +44,6 @@ export default class PopupWithForm extends Popup {
   close() {
     resetSubmitBtn(this._popup, validationObject);
     resetValidation(this._popup, validationObject);
-    this._removeEventListeners();
     super.close();
   }
 }
