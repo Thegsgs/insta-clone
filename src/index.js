@@ -1,5 +1,5 @@
 // Imports
-import '../src/pages/index.css';
+import './pages/index.css';
 import * as constants from './components/constants.js';
 import Api from './components/Api.js';
 import Section from './components/Section.js';
@@ -53,7 +53,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards(), api.getUserImg()])
     }, {
       popup: constants.editPopup,
       form: constants.editForm,
-      button: constants.editPopupCloseBtn
     });
 
     // Rendering initial cards
@@ -82,7 +81,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards(), api.getUserImg()])
     // Popup for confirming card deletion
     const confirmDelPopup = new PopupWithConfirm(
       constants.confirmPopup,
-      constants.confirmPopupBtn,
       constants.confirmPopupForm);
 
     // Profile picture changing popup
@@ -100,7 +98,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards(), api.getUserImg()])
     }, {
       popup: constants.imgChangePopup,
       form: constants.imgChangeForm,
-      button: constants.imgChangeBtn
     });
 
     // Popup for adding new images
@@ -119,7 +116,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards(), api.getUserImg()])
     }, {
       popup: constants.addPopup,
       form: constants.addForm,
-      button: constants.addPopupCloseBtn
     });
 
     // Form validation for all forms
@@ -139,7 +135,4 @@ Promise.all([api.getUserInfo(), api.getInitialCards(), api.getUserImg()])
     constants.editBtn.addEventListener('click', () => {
       editProfilePopup.open();
     });
-
-
-  })
-  .catch(error => console.log(`Error, ${error}`));
+  }).catch(error => console.log(`Error, ${error}`));

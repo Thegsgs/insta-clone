@@ -14,16 +14,13 @@ export default class PopupWithConfirm extends Popup {
         this._delCard.remove();
         this.close();
       });
-
   }
 
   _setEventListeners() {
-    super.setEventListeners();
     this._form.addEventListener('submit', this._deleteCard);
   }
 
   _removeEventListeners() {
-    super._removeEventListeners();
     this._form.removeEventListener('submit', this._deleteCard);
   }
 
@@ -36,6 +33,7 @@ export default class PopupWithConfirm extends Popup {
   }
 
   close() {
+    this._removeEventListeners();
     super.close();
   }
 }
