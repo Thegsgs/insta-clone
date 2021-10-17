@@ -1,4 +1,4 @@
-import { api } from '../index.js';
+import { api } from '../pages/index.js';
 
 export class Card {
   constructor(recievedCard, currentUser, selector, { handlePopupOpen, handleDelete }) {

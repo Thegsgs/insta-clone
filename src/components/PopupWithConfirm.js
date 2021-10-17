@@ -1,4 +1,4 @@
-import { api } from "../index.js";
+import { api } from "../pages/index.js";
 import Popup from "./Popup.js";
 
 export default class PopupWithConfirm extends Popup {

@@ -1,5 +1,5 @@
 import Popup from "./Popup.js";
-import { validationObject } from "./constants.js";
+import { validationObject } from "../constants.js";
 import { resetSubmitBtn, resetValidation } from "./FormValidator.js";
 
 export default class PopupWithForm extends Popup {
